@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "Tên sản phẩm",
+        "price": "300.000 đ",
+        "rating": 5.0,
+        "reviews": 48,
+        "sold": 120,
+        "image": "img/fashion/ao1.png"
+    },
+    {
+        "id": 2,
+        "name": "Tên sản phẩm",
+        "price": "250.000 đ",
+        "rating": 4.8,
+        "reviews": 35,
+        "sold": 90,
+        "image": "img/fashion/ao2.webp"
+    },
+    {
+        "id": 3,
+        "name": "Tên sản phẩm",
+        "price": "180.000 đ",
+        "rating": 4.7,
+        "reviews": 60,
+        "sold": 210,
+        "image": "img/fashion/dam1.png"
+    },
+    {
+        "id": 4,
+        "name": "Tên sản phẩm",
+        "price": "320.000 đ",
+        "rating": 4.9,
+        "reviews": 22,
+        "sold": 75,
+        "image": "img/fashion/quan1.png"
+    },
+    {
+        "id": 5,
+        "name": "Tên sản phẩm",
+        "price": "650.000 đ",
+        "rating": 5.0,
+        "reviews": 15,
+        "sold": 50,
+        "image": "img/fashion/ao1.png"
+    },
+    {
+        "id": 6,
+        "name": "Tên sản phẩm",
+        "price": "450.000 đ",
+        "rating": 4.6,
+        "reviews": 40,
+        "sold": 180,
+        "image": "img/fashion/dam1.png"
+    }
+]

@@ -1,0 +1,11 @@
+.product-item-index img {
+  width: 420px;
+  height: 220px;
+  object-fit: contain;
+}
+
+.new-item img {
+  width: 764px;
+  height: 408px;
+  object-fit: contain;
+}

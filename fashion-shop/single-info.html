@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Fashion Shop</title>
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="mask-icon" color="#5bbad5" href="safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#766df4">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Page loading styles-->
+  <link rel="stylesheet" href="css/loading.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Page loading scripts-->
+  <script>
+    (function () {
+      window.onload = function () {
+        var preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+          preloader.remove();
+          $("header").load("./components/navbar.html");
+          $("#signin-modal").load("./components/sign-in.html");
+          $("#signup-modal").load("./components/sign-up.html");
+          $("footer").load("./components/footer.html");
+          $("#related-section").load("./components/related-product.html");
+        }, 0);
+      };
+    })();
+  </script>
+  <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
+  <link rel="stylesheet" media="screen" href="vendor/lightgallery/css/lightgallery-bundle.min.css" />
+  <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
+  <link rel="stylesheet" media="screen" href="vendor/nouislider/dist/nouislider.min.css" />
+  <link rel="stylesheet" media="screen" href="vendor/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="css/theme.min.css">
+</head>
+<!-- Body-->
+
+<body>
+  <!-- Google Tag Manager (noscript)-->
+  <noscript>
+    <iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WKV3GT5" height="0" width="0"
+      style="display: none; visibility: hidden;"></iframe>
+  </noscript>
+  <!-- Demo switcher (offcanvas)-->
+  <button class="btn btn-icon btn-light rounded-circle shadow position-fixed top-50 end-0 translate-middle-y me-3"
+    type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Choose Demo" style="z-index: 1035;"><span
+      class="d-flex align-items-center justify-content-center position-absolute top-0 start-0 w-100 h-100 rounded-circle"
+      data-bs-toggle="offcanvas" data-bs-target="#demo-switcher"><i class="fi-layers"></i></span></button>
+  <div class="offcanvas offcanvas-end" id="demo-switcher">
+    <div class="offcanvas-header d-block border-bottom">
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2 class="h5 mb-0">Choose Demo</h2>
+        <button class="btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="d-flex"><a class="btn btn-outline-secondary btn-sm w-100 me-2" href="index.html"><i
+            class="fi-home me-2"></i>Main Page</a><a class="btn btn-outline-secondary btn-sm w-100"
+          href="components/typography.html"><i class="fi-file me-2"></i>Docs / UI Kit</a></div>
+    </div>
+    <div class="offcanvas-body">
+      <div class="card card-hover shadow-sm mb-4"><img class="card-img-top"
+          src="img/intro/demos/offcanvas/car-finder.jpg" alt="Car Finder Demo">
+        <div class="card-body p-3">
+          <h3 class="fs-base card-title text-center"><a class="nav-link stretched-link" href="car-finder-home.html">Car
+              Finder Demo</a></h3>
+        </div>
+      </div>
+      <div class="card card-hover shadow-sm mb-4"><img class="card-img-top"
+          src="img/intro/demos/offcanvas/real-estate.jpg" alt="Real Estate Demo">
+        <div class="card-body p-3">
+          <h3 class="fs-base card-title text-center"><a class="nav-link stretched-link"
+              href="real-estate-home-v1.html">Real Estate Demo</a></h3>
+        </div>
+      </div>
+      <div class="card card-hover shadow-sm mb-4"><img class="card-img-top"
+          src="img/intro/demos/offcanvas/job-board.jpg" alt="Job Board Demo">
+        <div class="card-body p-3">
+          <h3 class="fs-base card-title text-center"><a class="nav-link stretched-link"
+              href="job-board-home-v1.html">Job Board Demo</a></h3>
+        </div>
+      </div>
+      <div class="card card-hover shadow-sm mb-4"><img class="card-img-top"
+          src="img/intro/demos/offcanvas/city-guide.jpg" alt="City Guide Demo">
+        <div class="card-body p-3">
+          <h3 class="fs-base card-title text-center"><a class="nav-link stretched-link"
+              href="city-guide-home-v1.html">City Guide Demo</a></h3>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas-footer border-top"><a class="btn btn-primary btn-lg w-100"
+        href="https://themes.getbootstrap.com/product/finder-directory-listings-template-ui-kit/" target="_blank"
+        rel="noopener"><i class="fi-cart fs-lg me-2"></i>Buy Finder</a></div>
+  </div>
+  <!-- Page loading spinner-->
+  <div class="page-loading active">
+    <div class="page-loading-inner">
+      <div class="page-spinner"></div><span>Loading...</span>
+    </div>
+  </div>
+  <main class="page-wrapper">
+    <!-- Sign In Modal-->
+    <div class="modal fade" id="signin-modal" tabindex="-1" aria-hidden="true"></div>
+    <!-- Sign Up Modal-->
+    <div class="modal fade" id="signup-modal" tabindex="-1" aria-hidden="true"></div>
+    <!-- Navbar-->
+    <header class="navbar navbar-expand-lg navbar-light fixed-top" data-scroll-header></header>
+    <section class="container pt-5 mt-5">
+      <nav class="mb-3 pt-md-3" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index1.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="catalog.html">Tìm kiếm sản phẩm</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Tên sản phẩm</li>
+        </ol>
+      </nav>
+      <div class="d-sm-flex align-items-center justify-content-between mb-4 pb-sm-2">
+        <h1 class="h2 me-3 mb-sm-0">Tên sản phẩm</h1>
+        <div class="text-nowrap"></div>
+      </div>
+      <!-- Nav pills-->
+      <ul class="nav nav-pills border-bottom pb-3 mb-4">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="single.html">
+            <i class="fi-image me-2"></i>Ảnh
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center active" href="single-info.html">
+            <i class="fi-info-circle me-2"></i>Thông tin
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="single-reviews.html">
+            <i class="fi-edit me-2"></i>Đánh giá
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- Page content -->
+    <section class="container pb-5 mb-md-4">
+      <div class="row">
+        <!-- Left column-->
+        <div class="col-md-7 mb-md-0 mb-4 pb-md-0 pb-2">
+          <h2 class="h4">Giới thiệu</h2>
+          <ul class="list-unstyled">
+            <li><i class="fi-star-filled mt-n1 me-1 text-warning align-middle"></i><b>4.9 </b><span
+                class="text-muted">(48 reviews)</span></li>
+            <li><i class="fi-wallet mt-n1 me-1 align-middle opacity-70"></i>$$</li>
+            <li><i class="fi-map-pin mt-n1 me-1 align-middle opacity-70"></i>Giao hàng toàn quốc</li>
+          </ul>
+          <div class="mb-4 pb-md-3">
+            <p class="mb-1">Chúng tôi là thương hiệu thời trang uy tín, chuyên cung cấp quần áo nam nữ, phong cách trẻ
+              trung, hiện đại. Cam kết chất lượng sản phẩm tốt nhất, mẫu mã đa dạng, giá cả hợp lý.</p>
+            <div class="collapse" id="seeMoreAbout">
+              <p class="mb-1">Hơn 5 năm trong lĩnh vực thời trang, shop đã phục vụ hàng chục nghìn khách hàng. Với đội
+                ngũ thiết kế riêng và nguồn hàng chọn lọc, chúng tôi luôn mang đến xu hướng mới nhất cùng dịch vụ hỗ trợ
+                tận tâm.</p>
+            </div><a class="collapse-label collapsed" href="#seeMoreAbout" data-bs-toggle="collapse"
+              data-bs-label-collapsed="Show more" data-bs-label-expanded="Show less" role="button" aria-expanded="false"
+              aria-controls="seeMoreAbout"></a>
+          </div>
+          <!-- Amenities-->
+          <div class="mb-4 pb-md-3">
+            <h2 class="h4">Chính sách</h2>
+            <ul class="list-unstyled row row-cols-lg-3 row-cols-md-2 row-cols-1 gy-1 mb-1 text-nowrap">
+              <li class="col"><i class="fi-truck mt-n1 me-2 fs-lg align-middle"></i>Miễn phí ship từ 500k</li>
+              <li class="col"><i class="fi-refresh-cw mt-n1 me-2 fs-lg align-middle"></i>Đổi trả 7 ngày</li>
+              <li class="col"><i class="fi-credit-card mt-n1 me-2 fs-lg align-middle"></i>Thanh toán COD</li>
+              <li class="col"><i class="fi-shield mt-n1 me-2 fs-lg align-middle"></i>Bảo hành chính hãng</li>
+            </ul>
+          </div>
+          <!-- Room types-->
+          <div class="mb-4 pb-md-3">
+            <h2 class="h4">Danh mục nổi bật</h2>
+            <ul class="list-unstyled row row-cols-lg-3 row-cols-md-2 row-cols-1 gy-1 mb-1 text-nowrap">
+              <li class="col"><i class="fi-t-shirt mt-n1 me-2 fs-lg align-middle"></i>Áo thun</li>
+              <li class="col"><i class="fi-shopping-bag mt-n1 me-2 fs-lg align-middle"></i>Đầm & Váy</li>
+              <li class="col"><i class="fi-user mt-n1 me-2 fs-lg align-middle"></i>Đồ nam</li>
+              <li class="col"><i class="fi-heart mt-n1 me-2 fs-lg align-middle"></i>Thời trang nữ</li>
+              <li class="col"><i class="fi-whatsapp mt-n1 me-2 fs-lg align-middle"></i>Phụ kiện</li>
+            </ul>
+          </div>
+          <hr class="my-4">
+          <!-- Payment-->
+          <div class="d-lg-flex align-items-center pb-2 pb-lg-0">
+            <h4 class="fs-lg mb-lg-0">Phương thức thanh toán:</h4>
+            <div class="ps-lg-3"><img class="me-2 border rounded-1 shadow-sm"
+                src="img/city-guide/single/payment/visa.svg" width="54" alt="Visa"><img
+                class="me-2 border rounded-1 shadow-sm" src="img/city-guide/single/payment/mastercard.svg" width="54"
+                alt="Mastercard"><img class="me-2 border rounded-1 shadow-sm"
+                src="img/city-guide/single/payment/maestro.svg" width="54" alt="Maestro"><img
+                class="border rounded-1 shadow-sm" src="img/city-guide/single/payment/american-express.svg" width="54"
+                alt="American Express"></div>
+          </div>
+        </div>
+        <!-- Sidebar-->
+        <aside class="col-md-5">
+          <!-- Place card-->
+          <div class="card mb-4 p-2 shadow-sm">
+            <div class="card-body">
+              <!-- Place info-->
+              <div class="d-flex align-items-start mb-3 pb-2 border-bottom"><img src="img/city-guide/brands/hotel.svg"
+                  width="60" alt="Thumbnail">
+                <div class="ps-2 ms-1">
+                  <h3 class="h5 mb-2"> Fashion Store</h3>
+                  <ul class="list-unstyled d-flex flex-wrap fs-sm">
+                    <li class="me-2 mb-1 pe-1">
+                      <i class="fi-star-filled mt-n1 me-1 text-warning align-middle opacity-70"></i><b>4.8 </b>(1200)
+                    </li>
+                    <li class="me-2 mb-1 pe-1"><i class="fi-wallet mt-n1 me-1 align-middle opacity-70"></i>Giá hợp lý
+                    </li>
+                    <li class="me-2 mb-1 pe-1">
+                      <i class="fi-map-pin mt-n1 me-1 align-middle opacity-70"></i>TP. Hồ Chí Minh
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Place contacts-->
+              <div class="mb-3 pb-3 border-bottom">
+                <h4 class="h5 mb-2">Liên hệ:</h4>
+                <ul class="nav flex-column">
+                  <li class="nav-item mb-2"><a class="nav-link p-0 fw-normal d-flex align-items-start" href="#"><i
+                        class="fi-map-pin mt-1 me-2 align-middle opacity-70"></i>123 Nguyễn Trãi, Q.1, TP.HCM</a>
+                  </li>
+                  <li class="nav-item mb-2"><a
+                      class="nav-link d-inline-block p-0 fw-normal d-inline-flex align-items-start"
+                      href="tel:0987654321"><i class="fi-phone mt-1 me-2 align-middle opacity-70"></i>0987 654 321</a>
+                  </li>
+                  <li class="nav-item mb-2"><a class="nav-link p-0 fw-normal d-flex align-items-start" href="#"><i
+                        class="fi-globe mt-1 me-2 align-middle opacity-60"></i>fashion-store.vn</a></li>
+                  <li class="nav-item"><a class="nav-link p-0 fw-normal d-flex align-items-start"
+                      href="mailto:contact@fashion-store.vn"><i
+                        class="fi-mail mt-1 me-2 align-middle opacity-70"></i>contact@fashion-store.vn</a></li>
+                </ul>
+              </div>
+              <div class="mb-3 pb-4 border-bottom">
+                <div class="row row-cols-1">
+                  <div class="col mb-3">
+                    <h4 class="h5 mb-0"><span class="fs-4">Sale 50% OFF&nbsp;</span><span
+                        class="fs-base fw-normal text-body">toàn bộ áo thun</span></h4>
+                  </div>
+                  <div class="col"><a class="btn btn-primary btn-lg rounded-pill w-sm-auto w-100" href="#">Mua ngay<i
+                        class="fi-chevron-right fs-sm ms-2"></i></a></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center">
+                <h4 class="h5 mb-0 me-3">Theo dõi:</h4>
+                <div class="text-nowrap"><a class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2"
+                    href="#"><i class="fi-facebook"></i></a><a
+                    class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle me-2" href="#"><i
+                      class="fi-instagram"></i></a><a
+                    class="btn btn-icon btn-light-primary btn-xs shadow-sm rounded-circle" href="#"><i
+                      class="fi-twitter"></i></a></div>
+              </div>
+            </div>
+          </div>
+          <div class="position-relative"><img class="rounded-3" src="img/city-guide/single/map-sm.jpg" alt="Map">
+            <div
+              class="d-flex w-100 h-100 flex-column align-items-center justify-content-center position-absolute top-0 start-0">
+              <img class="d-block mx-auto mb-4 rounded-circle bg-white shadow" src="img/city-guide/brands/hotel.svg"
+                width="40" alt="Place logo"><a class="btn btn-primary rounded-pill stretched-link"
+                href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2423.924340088787!2d13.428504251724927!3d52.58906113876177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a85284201593ab%3A0x28af69e02ce0e2fc!2sBusinesshotel%20Berlin!5e0!3m2!1sru!2sua!4v1618908622013!5m2!1sru!2sua"
+                data-iframe="true" data-bs-toggle="lightbox"><i class="fi-route me-2"></i>Giảm giá mùa hè</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <section class="container pb-5 mb-lg-4" id="related-section"></section>
+  </main>
+  <!-- Footer-->
+  <footer class="footer pt-lg-5 pt-4 bg-dark text-light"></footer>
+  <a class="btn-scroll-top" href="#top" data-scroll><span
+      class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon fi-chevron-up">
+    </i></a>
+  <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/simplebar/dist/simplebar.min.js"></script>
+  <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="vendor/lightgallery/lightgallery.min.js"></script>
+  <script src="vendor/flatpickr/dist/flatpickr.min.js"></script>
+  <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+  <!-- Main theme script-->
+  <script src="js/theme.min.js"></script>
+  <script src="js/related-product.js"></script>
+</body>
+
+</html>
