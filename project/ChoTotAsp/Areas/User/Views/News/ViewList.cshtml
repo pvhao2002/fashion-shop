@@ -1,0 +1,43 @@
+﻿@*@model IEnumerable<ChoTotAsp.Entity.Product>
+
+@foreach (var item in Model)
+{
+    <div class="card card-light card-hover card-horizontal mb-4">
+        <div class="tns-carousel-wrapper card-img-top card-img-hover">
+            <a class="img-overlay" href="/User/News/Detail/@item.ProductId"></a>
+            <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                <span class="d-table badge bg-info">Đã sử dụng</span>
+            </div>
+            <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                        onclick="addToWishList(@item.ProductId)"
+                        data-bs-toggle="tooltip" data-bs-placement="left" title="Thêm vào yêu thích">
+                    <i class="fi-heart"></i>
+                </button>
+            </div>
+            <div class="tns-carousel-inner position-absolute top-0 h-100">
+                @foreach (var img in item.Images)
+                {
+                    <div class="bg-size-cover bg-position-center w-100 h-100"
+                         style="background-image: url(@img.ImageUrl);">
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between pb-1">
+                <span class="fs-sm text-light me-3">Ngày đăng: @item.CreatedDate</span>
+            </div>
+            <h3 class="h6 mb-1">
+                <a class="nav-link-light" href="/User/News/Detail/@item.ProductId">@item.Title</a>
+            </h3>
+            <div class="text-primary fw-bold mb-1">@($"{item.Price:n0}") đ</div>
+            <div class="fs-sm text-light opacity-70"><i class="fi-map-pin me-1"></i>@item.Province.ProvinceName</div>
+            <div class="border-top border-light mt-3 pt-3">
+                <div class="row g-2">
+                    @item.Description.Substring(0, 100) ...
+                </div>
+            </div>
+        </div>
+    </div>
+}*@

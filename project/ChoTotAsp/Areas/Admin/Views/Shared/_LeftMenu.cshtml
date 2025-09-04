@@ -1,0 +1,94 @@
+﻿@{
+    var isUserManagement = ViewContext.RouteData.Values["controller"].ToString() == "UserManagement";
+    var isCategoryManagement = ViewContext.RouteData.Values["controller"].ToString() == "CategoryManagement" && ViewContext.RouteData.Values["action"].ToString() == "Index";
+    var isProductManagement = ViewContext.RouteData.Values["controller"].ToString() == "ProductManagement" && ViewContext.RouteData.Values["action"].ToString() == "Index";
+}
+
+<div class="v-sidebar-menu employer vsm_expanded show_sidebar" style="max-width:300px;">
+    <div class="v-sidebar-header">
+        <div class="sidebar-header">
+            <a href="/Admin/HomeAdmin" class="router-link-active text-white">
+                <h1 class="text-white">ADMIN</h1>
+            </a>
+            <div class="btn_action">
+                <i class="fa-solid fa-angle-left" onclick="showHideLeftMenu()"></i>
+            </div>
+        </div>
+    </div>
+    <div class="vsm--scroll-wrapper">
+        <div class="vsm--list">
+            <div class="vsm--header"></div>
+            <div class="vsm--item">
+                <a href="/Admin/HomeAdmin"
+                   class="router-link-exact-active router-link-active vsm--link vsm--link_level-1">
+                    <i class="fas fa-chart-bar" style="padding-right: 10px">
+                    </i>
+                    <span class="vsm--title">Trang chủ </span>
+                </a>
+            </div>
+            <div class="vsm--item">
+                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @(isUserManagement ? "vsm--link_active" : "")" onclick="showSubItem(this)">
+                    <i class="fas fa-user" style="padding-right: 10px">
+                    </i>
+                    <span class="vsm--title">Người dùng</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/UserManagement" class="router-link-exact-active router-link-active vsm--link vsm--link_level-2 @(isUserManagement ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title">Quản lý người dùng</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Quản lý người dùng
+                                </p>
+                            </a>
+                        </div>
+
+                        <div class="vsm--item">
+                            <a href="/Admin/UserManagement/Statistic" class="router-link-exact-active router-link-active vsm--link vsm--link_level-2 @(isUserManagement ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title">Thống kê người dùng</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Thống kê người dùng
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vsm--item">
+                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @((isCategoryManagement || isProductManagement) ? "vsm--link_active" : "")" onclick="showSubItem(this)">
+                    <i class="fas fa-store" style="padding-right: 10px">
+                    </i>
+                    <span class="vsm--title">Sản phẩm</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/ProductManagement" class="vsm--link vsm--link_level-2 @(isProductManagement ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title"> Quản lý sản phẩm</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Quản lý sản phẩm
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/CategoryManagement" class="vsm--link vsm--link_level-2 @(isCategoryManagement ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title">Danh mục sản phẩm</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Danh mục sản phẩm
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

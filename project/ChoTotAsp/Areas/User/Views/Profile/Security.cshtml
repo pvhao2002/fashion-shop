@@ -1,0 +1,101 @@
+﻿@model ChoTotAsp.Areas.User.ViewModel.ProfileViewModel
+
+@{
+    ViewBag.Title = "Thay đổi mật khẩu";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">
+    <!-- Breadcrumb-->
+    @Html.Partial("Breadcrumb", "Mật khẩu và bảo mật")
+    <!-- Page content-->
+    <div class="row">
+        <!-- Sidebar-->
+        @Html.Partial("Sidebar", Model)
+        <!-- Content-->
+        <div class="col-lg-8 col-md-7 mb-5">
+            <h1 class="h2 text-light">Mật khẩu &amp; Bảo mật</h1>
+            <p class="text-light pt-1">Quản lý cài đặt mật khẩu và bảo mật tài khoản của bạn.</p>
+            <h2 class="h5 text-light">Mật khẩu</h2>
+            <form class="needs-validation pb-4" novalidate id="form-change-password">
+                <div class="row align-items-end mb-2">
+                    <div class="col-sm-6 mb-2">
+                        <label class="form-label text-light" for="account-password">Mật khẩu hiện tại</label>
+                        <div class="password-toggle">
+                            <input class="form-control form-control-light" type="password" min="8" id="account-password" required>
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label text-light" for="account-password-new">Mật khẩu mới</label>
+                        <div class="password-toggle">
+                            <input class="form-control form-control-light" type="password" id="account-password-new" min="8" required>
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label text-light" for="account-password-confirm">Xác nhận mật khẩu</label>
+                        <div class="password-toggle">
+                            <input class="form-control form-control-light" type="password" id="account-password-confirm" min="8" required>
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline-primary" type="submit">Cập nhật</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script >
+        document.getElementById('form-change-password').addEventListener('submit', function (e) {
+            e.preventDefault();
+            showLoading();
+            const password = document.getElementById('account-password').value;
+            const newPassword = document.getElementById('account-password-new').value;
+            const confirmPassword = document.getElementById('account-password-confirm').value;
+            
+            // validate input
+            if (password.length < 8 || newPassword.length < 8 || confirmPassword.length < 8) {
+                showAlert('Mật khẩu phải chứa ít nhất 8 ký tự', 'danger');
+                hideLoading();
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showAlert('Mật khẩu xác nhận không khớp', 'danger');
+                hideLoading();
+                return;
+            }
+            const formData = new FormData();
+            formData.append('password', password);
+            formData.append('newPassword', newPassword);
+            fetch('/User/Profile/ChangePassword', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                showAlert(data.message, data.success ? 'success' : 'danger');
+                setTimeout(() => {
+                    if (data.success) {
+                        window.location.href = '/User/Logout';
+                    }
+                }, 600);
+            })
+            .catch(error => {
+                showAlert('Có lỗi xảy ra', 'danger');
+            });
+        });
+    </script>
+}

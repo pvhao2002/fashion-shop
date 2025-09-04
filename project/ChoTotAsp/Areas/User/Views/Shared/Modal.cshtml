@@ -1,0 +1,10 @@
+﻿@model bool
+
+@if (!Model)
+{
+    <!-- Sign In Modal-->
+    @Html.Partial("Login")
+    <!-- Sign Up Modal-->
+    @Html.Partial("SignUp")
+    @Html.Partial("ForgetPassword")
+}

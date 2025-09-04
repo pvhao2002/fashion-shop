@@ -1,0 +1,166 @@
+﻿@model ChoTotAsp.Areas.User.ViewModel.ProfileViewModel
+
+@{
+    ViewBag.Title = "Trang cá nhân";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+@section css {
+    <link rel="stylesheet" media="screen" href="~/Content/User/filepond-plugin-image-preview.min.css"/>
+    <link rel="stylesheet" media="screen" href="~/Content/User/filepond.min.css"/>
+}
+
+<div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">
+    <!-- Breadcrumb-->
+    @Html.Partial("Breadcrumb", "Trang cá nhân")
+    <!-- Page content-->
+    <div class="row">
+        <!-- Sidebar-->
+        @Html.Partial("Sidebar", Model)
+        <!-- Content-->
+        <form novalidate class="needs-validation js-validate col-lg-8 col-md-7 mb-5" action="/User/Profile/Update" method="post">
+            <h1 class="h2 text-light">Thông tin cá nhân</h1>
+            <div class="row pt-2">
+                <div class="col-lg-9 col-md-12 col-sm-8 mb-2 mb-m-4">
+                    <div class="border border-light rounded-3 p-3 mb-4" id="personal-info">
+                        <!-- Name-->
+                        <div class="border-bottom border-light pb-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="pe-2 opacity-70">
+                                    <label class="form-label fw-bold text-light">Họ và tên</label>
+                                    <div class="text-light" id="name-value">@Model.CurrentUser.email</div>
+                                </div>
+                                <div class="me-n3" data-bs-toggle="tooltip" title="Chỉnh sửa">
+                                    <a class="nav-link nav-link-light py-0" href="#name-collapse"
+                                       data-bs-toggle="collapse">
+                                        <i class="fi-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="collapse" id="name-collapse" data-bs-parent="#personal-info">
+                                <input class="form-control form-control-light mt-3" type="text"
+                                       name="name"
+                                       data-bs-binded-element="#name-value"
+                                       data-bs-unset-value="Not specified"
+                                       value="@Model.CurrentUser.email">
+                            </div>
+                        </div>
+                        <!-- Email-->
+                        <div class="border-bottom border-light pb-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="pe-2 opacity-70">
+                                    <label class="form-label fw-bold text-light">Email</label>
+                                    <div class="text-light" id="email-value">@Model.CurrentUser.email</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phone number-->
+                        <div class="border-bottom border-light pb-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="pe-2 opacity-70">
+                                    <label class="form-label fw-bold text-light">Ngày tạo tài khoản</label>
+                                    <div class="text-light" id="phone-value">@Model.CurrentUser.email</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Address-->
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="pe-2 opacity-70">
+                                    <label class="form-label fw-bold text-light">Lần cập nhật gần đây</label>
+                                    @*<div class="text-light" id="address-value">@Model.CurrentUser.LastUpdatedDate</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-4 mb-4">
+                    <input class="file-uploader border-light bg-faded-light" type="file" onchange="uploadAvatar()" accept="image/*"
+                           data-label-idle="&lt;i class=&quot;d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2&quot;&gt;&lt;/i&gt;&lt;br&gt;&lt;span class=&quot;fw-bold text-light opacity-70&quot;&gt;Thay đổi ảnh đại diện&lt;/span&gt;"
+                           data-style-panel-layout="compact"
+                           data-image-preview-height="160"
+                           data-image-crop-aspect-ratio="1:1"
+                           data-image-resize-target-width="200"
+                           data-image-resize-target-height="200">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="d-flex align-items-center justify-content-between pb-1">
+                        <button class="btn btn-primary" type="submit">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section vendor {
+    <script src="~/Scripts/User/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/Scripts/User/filepond.min.js"></script>
+    <script src="~/Scripts/User/filepond.jquery.js"></script>
+    <script src="~/Scripts/User/cleave.min.js"></script>
+}
+
+@section js {
+    <script>
+        const pond = inputPondElement[0];
+        
+        // Set FilePond options
+        pond.setOptions({
+            maxFiles: 1,
+            allowMultiple: false,
+            allowBrowse: true,
+            allowPaste: true,
+            files: [
+                {
+                    source: 'data:image/png;base64,@Model.CurrentUser.avatar',
+                }
+            ]
+        });
+        let initialLoad = true;
+        pond.on('addfile', (error, file) => {
+            if (initialLoad) {
+                initialLoad = false; // Set the flag to false after the initial load
+                return;
+            }
+            
+            if (error) {
+                showAlert('Có lỗi xảy ra khi tải ảnh lên', 'danger');
+                return;
+            }
+            showLoading();
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64String = event.target.result.split(',')[1]; // Get the base64 string part
+                const formData = new FormData();
+                formData.append('Avatar', base64String);
+                // Call the API to upload avatar
+                fetch('/User/Profile/UploadAvatar', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        hideLoading();
+                        if (data.success) {
+                            showAlert('Ảnh đại diện đã được cập nhật thành công', 'success');
+                        } else {
+                            showAlert('Có lỗi xảy ra khi tải ảnh lên', 'danger');
+                        }
+                    })
+                    .catch(error => {
+                        showAlert('Có lỗi xảy ra khi tải ảnh lên', 'danger');
+                    });
+            };
+
+            reader.readAsDataURL(file.file);
+        });
+    </script>
+}

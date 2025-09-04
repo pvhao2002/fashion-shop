@@ -1,0 +1,78 @@
+﻿@using ChoTotAsp.Utils
+@model ChoTotAsp.Areas.User.ViewModel.ProfileViewModel
+
+@{
+    ViewBag.Title = "Bài đăng của tôi";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">
+    <!-- Breadcrumb-->
+    @Html.Partial("Breadcrumb", "Bài đăng của tôi")
+    <!-- Page content-->
+    <div class="row">
+        <!-- Sidebar-->
+        @Html.Partial("Sidebar", Model)
+        <!-- Content-->
+        <div class="col-lg-8 col-md-7 mb-5">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h1 class="h2 text-light mb-0">Danh sách bài đăng của tôi</h1>
+            </div>
+            <!-- Nav tabs-->
+            <ul class="nav nav-tabs nav-tabs-light border-bottom border-light mb-4" role="tablist">
+                <li class="nav-item mb-3">
+                    <a class="nav-link active" href="#tab-pending"
+                       data-bs-toggle="tab" role="tab" aria-selected="true">
+                        <i class="fi-refresh fs-base me-2">
+                        </i>Chờ duyệt
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link " href="#tab-publish"
+                       data-bs-toggle="tab" role="tab" aria-selected="true">
+                        <i class="fi-file fs-base me-2">
+                        </i>Công khai
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link" href="#tab-hide"
+                       data-bs-toggle="tab"
+                       role="tab" aria-selected="false">
+                        <i class="fi-archive fs-base me-2">
+                        </i>Ẩn
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="nav-link" href="#tab-reject"
+                       data-bs-toggle="tab"
+                       role="tab" aria-selected="false">
+                        <i class="fi-x fs-base me-2">
+                        </i>Từ chối
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="tab-content pt-2">
+                <div class="tab-pane fade show active" id="tab-pending" role="tabpanel">
+                    @Html.Partial("MyPost", new List<object>())
+                </div>
+
+                <div class="tab-pane fade " id="tab-publish" role="tabpanel">
+                    @Html.Partial("MyPost", new List<object>())
+                </div>
+
+                <div class="tab-pane fade " id="tab-hide" role="tabpanel">
+                    @Html.Partial("MyPost", new List<object>())
+                </div>
+
+                <div class="tab-pane fade " id="tab-reject" role="tabpanel">
+                    @Html.Partial("MyPost", new List<object>())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/Scripts/User/mypost.js"></script>
+}

@@ -1,0 +1,66 @@
+﻿<header id="dashboard-header" class="dashboard-header">
+    <ul class="nav nav-left">
+        <li>
+            <a href="#">
+                <i class="fas fa-user" style="padding-right: 5px">
+                </i>
+                <span>@Model.Title</span>
+            </a>
+        </li>
+
+    </ul>
+    <ul class="nav nav-right nav-70">
+        <li class="li-70">
+            <div class="dropdown dropdown-right dropdown-notification">
+                <a href="#" onclick="showNotification(this)" style="padding-left: 10px; padding-right: 10px">
+                    <i class="fas fa-bell" style="font-size: 20px;"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-notify show" style="display: none;">
+                    <div>
+                        <h4 class="dropdown-header-item">
+                            Thông báo
+                        </h4>
+                        <div class="dropdown-body text-muted" style="height:auto;padding:20px;">
+                            Bạn chưa nhận được thông báo nào...
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </li>
+
+
+        <li class="li-70">
+            <div class="dropdown dropdown-right dropdown-notification">
+                <a href="#" style="padding-left: 10px; padding-right: 10px">
+                    <i class="fas fa-cog" style="font-size: 20px;"></i>
+                </a>
+            </div>
+        </li>
+
+        <li class="li-70">
+            <div class="dropdown dropdown-right dropdown-notification">
+                <a href="#" onclick="showNotification(this)" style="padding-left: 10px; padding-right: 10px">
+                    <i class="fas fa-user-circle" style="font-size: 20px;"></i>
+                </a>
+                <ul class="dropdown-menu show" style="display: none">
+                    <div data-v-e0f95a3e="">
+                        <span data-v-e0f95a3e="" class="dropdown-header-item">
+                            <div data-v-e0f95a3e="" class="avatar avatar-changer">
+                                <input data-v-e0f95a3e="" id="upload-avatar" type="file" accept="image/*" class="hidden">
+                                <div data-v-e0f95a3e="" class="upload-avatar">
+                                    <i data-v-e0f95a3e="" class="icon-photo"></i>
+                                </div> <img data-v-e0f95a3e="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACCCAMAAAC93eDPAAAASFBMVEXFxcX////Dw8PExMT9/f3IyMjNzc3d3d35+fn19fXz8/PW1tbT09Pw8PDt7e3a2trh4eHQ0ND7+/vq6urn5+fKysrj4+Pf398v5zTcAAACi0lEQVR42u3ZW47kIAwFUPsaEkIelWfV/nc6n2ik6a5Am3JrxFmB5RgbHGqapmmapmmapmkaEyIAIEI2AIi/um3rOk8APh0HIFt/xGHfnXN7iMs6eYA+B+hes+O/Def0sSAE3bnzv8yjgD4AfnX8lWWrXxOCPvA33OlBVcGf/EbcQBXhmvmtfQRVg27gG9wDVAmuge+pFYP4yDe5St8CC98WOpA+vDjDTELasDnO8QJpw8JZ9gukC6PjPAdIWeRcG5STwNkOGFVC4lQPpnQ75+tBevDgArOYfYd0LkVxOgQuMUFxSDtm22LAxEVOGFVjsiiG0HORSGqwcpFBbWKLfQi/IAu/ohYeXGSW/6ov2HfH0hmh+ZqQhQu4TkgNevP7gqRiMHtKyGx9dySMRnMyERqM7kwJHlZJSDCXVoJZk36C1OHJGQYvpE5o5tvcBqpAroHZeN+FLmSOSH3YgkEEBbtP14Mqgl/4jTCBqoK8An/nuECVCa7T8VfmCR+IwI/HNyGMHkI1CXz/piCH9aqYCMH1HPit8OxqZQLUB75lXz1In2CKfNsw6icCsjrO8SSQKmwzZ4q6LQqPnbO5HmL0kklWEaMlS3LqFITQwcUWLxo5OPgHZhGjPVNyQgwqUfc2j4fjn3pB9c/gx5ctQpEVBC9KD6hyh1RcKlR+V8AHVrJ3oBI4Wc2Cste84yz6j0yJrCgq1KJFRUZWFbyor7fq9+mB2TQNqRLsDgUWVhdJMiekvgmZ80nfCaO2lAze4DuU312wchUHir6DTWtA57iOCUbNOVlvh3BwJbMYzYdkv8SoFJIJRiMq6WHUnZMDRlMyiQZXtqLmJD5wNa4TgwNRcCQwcUUjFM6k+gXyD9PqJtcnpkrTAAAAAElFTkSuQmCC" alt="Minh Tri Huynh" class="profile-avatar">
+                            </div> <strong data-v-e0f95a3e="">Admin</strong>
+                        </span>
+                        <div class="dropdown-buttons">
+                            <a href="/Admin/LogoutAdmin" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt prt-1 prl--2 mr-2" style="margin-top: 4px;"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</header>

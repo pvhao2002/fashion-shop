@@ -1,0 +1,67 @@
+﻿<!--@model ChoTotAsp.Areas.User.ViewModel.ProfileViewModel
+
+@{
+    ViewBag.Title = "Yêu thích";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">-->
+    <!-- Breadcrumb-->
+    <!--@Html.Partial("Breadcrumb", "Yêu thích")-->
+    <!-- Page content-->
+    <!--<div class="row">-->
+        <!-- Sidebar-->
+        <!--@Html.Partial("Sidebar", Model)-->
+        <!-- Content-->
+        <!--<div class="col-lg-8 col-md-7 mb-5">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-2">
+                <h1 class="h2 text-light mb-0">Yêu thích<span class="badge bg-faded-light fs-base align-middle ms-3">@Model.MyWishList.Count</span></h1>
+            </div>-->
+            <!-- Item-->
+            <!--@foreach (var item in Model.MyWishList)
+            {
+                <div class="card card-light card-hover card-horizontal mb-4">
+                    <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                        <a class="img-overlay" href="/User/News/@item.ProductId"></a>
+                        <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                            <span class="d-table badge bg-info mb-1">Đã sử dụng</span>
+                            @Html.Partial("Verified")
+                        </div>
+                        <div class="position-absolute end-0 top-0 pt-3 pe-3 zindex-5">
+                            <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle shadow-sm"
+                                    onclick="removeFromWishList(@item.ProductId)"
+                                    type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Xóa khỏi yêu thích">
+                                <i class="fi-heart-filled"></i>
+                            </button>
+                        </div>
+                        <div class="tns-carousel-inner position-absolute top-0 h-100">
+                            @foreach (var img in item.Images)
+                            {
+                                <div class="bg-size-cover bg-position-center w-100 h-100"
+                                     style="background-image: url(@img.ImageUrl);">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between pb-1">
+                            <span class="fs-sm text-light me-3">@item.CreatedDate</span>
+                        </div>
+                        <h3 class="h6 mb-1">
+                            <a class="nav-link-light" href="/User/News/@item.ProductId">@item.Title</a>
+                        </h3>
+                        <div class="text-primary fw-bold mb-1">
+                            @($"{item.Price:n0}") đ
+                        </div>
+                        <div class="fs-sm text-light opacity-70"><i class="fi-map-pin me-1"></i>@item.Province.ProvinceName</div>
+                        <div class="border-top border-light mt-3 pt-3">
+                            <div class="row g-2">
+                                @item.Description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>-->

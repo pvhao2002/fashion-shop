@@ -1,0 +1,269 @@
+﻿<!--@using ChoTotAsp.Utils
+@model ChoTotAsp.Areas.User.ViewModel.NewViewModel
+
+@{
+    ViewBag.Title = "Bảng tin";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+    var listYears = new List<int>() { 2021, 2022, 2023, 2024, 2025 };
+    var isLogin = AuthenticationUtil.GetUserId(Context.Request, Session) != -1;
+}
+
+@section css {
+    <link rel="stylesheet" media="screen" href="~/Content/User/leaflet.css"/>
+    <link rel="stylesheet" media="screen" href="~/Content/User/filepond-plugin-image-preview.min.css"/>
+    <link rel="stylesheet" media="screen" href="~/Content/User/filepond.min.css"/>
+}
+@Html.Partial("Modal", isLogin)-->
+
+<!-- Page container-->
+<!--<div class="container mt-5 mb-md-4 py-5">
+    <div class="row py-md-1">-->
+        <!-- Filers sidebar -->
+        <!--<div class="col-lg-3 pe-xl-4">
+            <div class="offcanvas offcanvas-start offcanvas-collapse bg-dark" id="filters-sidebar">
+                <div class="offcanvas-header bg-transparent d-flex d-lg-none align-items-center">
+                    <h2 class="h5 text-light mb-0">Lọc</h2>
+                    <button class="btn-close btn-close-white" type="button" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body py-lg-4">
+                    <div class="pb-4 mb-2">
+                        <h3 class="h6 text-light">Địa chỉ</h3>
+                        <select class="form-select form-select-light mb-2" onchange="changeProvince(this)">
+                            <option value="" @(Model.ProvinceId == 0 ? "selected" : "")>Tất cả</option>
+                            @foreach (var p in Model.ListProvinces)
+                            {
+                                <option value="@p.ProvinceId" @(Model.ProvinceId == p.ProvinceId ? "selected" : "")>@p.ProvinceName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="pb-4 mb-2">
+                        <h3 class="h6 text-light pt-1">Năm</h3>
+                        <div class="d-flex align-items-center">
+                            <select class="form-select form-select-light w-100" onchange="changeYear(this)">
+                                <option value="" disabled @(Model.YearFrom == 0 ? "selected" : "")>Từ</option>
+                                @foreach (var y in listYears)
+                                {
+                                    <option value="@y" @(Model.YearFrom == y ? "selected" : "")>@y</option>
+                                }
+                            </select>
+                            <div class="mx-2">&mdash;</div>
+                            <select class="form-select form-select-light w-100" onchange="changeYearTo(this)">
+                                <option value="" disabled @(Model.YearTo == 0 ? "selected" : "")>Đến</option>
+                                @foreach (var y in listYears)
+                                {
+                                    <option value="@y" @(Model.YearTo == y ? "selected" : "")>@y</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pb-4 mb-2">
+                        <h3 class="h6 text-light pt-1">Giá</h3>
+                        <div class="d-flex align-items-center">
+                            <input class="form-control form-control-light w-100"
+                                   value="@(Model.PriceFrom == 0 ? "" : $"{Model.PriceFrom}")"
+                                   type="number" min="0" step="500"
+                                   onchange="changePriceFrom(this)"
+                                   placeholder="Từ">
+                            <div class="mx-2">&mdash;</div>
+                            <input class="form-control form-control-light w-100"
+                                   value="@(Model.PriceTo == 0 ? "" : $"{Model.PriceTo}")"
+                                   onchange="changePriceTo(this)"
+                                   type="number" min="0" step="500"
+                                   placeholder="Đến">
+                        </div>
+                    </div>
+                    <div class="pb-4 mb-2">
+                        <h3 class="h6 text-light">Thể loại</h3>
+                        <div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false"
+                             data-simplebar-inverse style="height: 11rem;">
+                            <div class="form-check form-check-light">
+                                <input class="form-check-input" onchange="changeCategory(0)"
+                                       @(Model.CategoryId == 0 ? "checked" : "")
+                                       value="0" type="radio" name="cate" id="cate0">
+                                <label class="form-check-label fs-sm" for="cate0">Tất cả</label>
+                            </div>
+                            @foreach (var cate in Model.ListCategory)
+                            {
+                                <div class="form-check form-check-light">
+                                    <input class="form-check-input" onchange="changeCategory(@cate.CategoryId)"
+                                           @(Model.CategoryId == cate.CategoryId ? "checked" : "")
+                                           value="@cate.CategoryId" type="radio" name="cate" id="@("cate" + cate.CategoryId)">
+                                    <label class="form-check-label fs-sm" for="@("cate" + cate.CategoryId)">@cate.CategoryName</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!-- Catalog list view-->
+        <!--<div class="col-lg-9">-->
+            <!-- Breadcrumb-->
+            <!--<nav class="mb-3 pt-md-2 pt-lg-4" aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-light">
+                    <li class="breadcrumb-item">
+                        <a href="/User/Home">Trang chủ</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Tin mới</li>
+                </ol>
+            </nav>-->
+            <!-- Page title-->
+            <!--<div class="d-flex align-items-center justify-content-end pb-4 mb-2">
+                <div class="text-light">
+                    <i class="fi-car fs-lg me-2"></i><span class="align-middle">@Model.TotalNews bài đăng</span>
+                </div>
+            </div>-->
+            <!-- Sorting + View-->
+            <!--<div class="d-sm-flex align-items-center justify-content-between pb-4 mb-2">
+                <div class="d-flex align-items-center me-sm-4">
+                    <label class="fs-sm text-light me-2 pe-1 text-nowrap" for="sorting1">
+                        <i
+                            class="fi-arrows-sort mt-n1 me-2">
+                        </i>Sắp xếp theo:
+                    </label>
+                    <select class="form-select form-select-light form-select-sm me-sm-4" id="sorting1" onchange="sortNews(this)">
+                        <option value="desc-created_date" @("desc-created_date".Equals(Model.Sort) ? "selected" : "")>Mới nhất</option>
+                        <option value="asc-created_date" @("asc-created_date".Equals(Model.Sort) ? "selected" : "")>Phổ biên</option>
+                        <option value="asc-price" @("asc-price".Equals(Model.Sort) ? "selected" : "")>Giá: Thấp - Cao</option>
+                        <option value="desc-price" @("desc-price".Equals(Model.Sort) ? "selected" : "")>Giá: Cao - Thấp</option>
+                    </select>
+                </div>
+                <div class="d-none d-sm-flex">
+                    <a class="nav-link nav-link-light px-2 @("list".Equals(Model.ViewMode) ? "active" : "")" href="/User/News/Index?view=list"
+                       data-bs-toggle="tooltip" title="List view">
+                        <i class="fi-list"></i>
+                    </a>
+                    <a class="nav-link nav-link-light px-2 @(!"list".Equals(Model.ViewMode) ? "active" : "")" href="/User/News/Index?view=grid" data-bs-toggle="tooltip"
+                       title="Grid view">
+                        <i class="fi-grid"></i>
+                    </a>
+                </div>
+            </div>-->
+            <!-- Item-->
+            <!--@if (Model.ListNews.Count == 0)
+            {
+                <div class="card card-light card-hover card-horizontal mb-4">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h3 class="h5 text-light">Không có bài đăng nào</h3>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Partial("list".Equals(Model.ViewMode) ? "ViewList" : "ViewGrid", Model.ListNews)
+            }-->
+
+            <!-- Sorting + Pagination-->
+            <!--<div class="d-flex align-items-center justify-content-between py-2">
+                <div class="d-flex align-items-center me-sm-4">
+                    <label class="fs-sm text-light me-2 pe-1 text-nowrap" for="sorting2">
+                        <i
+                            class="fi-arrows-sort mt-n1 me-2">
+                        </i>Sắp xếp theo:
+                    </label>
+                    <select class="form-select form-select-light form-select-sm me-2 me-sm-4" id="sorting2" onchange="sortNews(this)">
+                        <option value="desc-created_date" @("desc-created_date".Equals(Model.Sort) ? "selected" : "")>Mới nhất</option>
+                        <option value="asc-created_date" @("asc-created_date".Equals(Model.Sort) ? "selected" : "")>Phổ biên</option>
+                        <option value="asc-price" @("asc-price".Equals(Model.Sort) ? "selected" : "")>Giá: Thấp - Cao</option>
+                        <option value="desc-price" @("desc-price".Equals(Model.Sort) ? "selected" : "")>Giá: Cao - Thấp</option>
+                    </select>
+                </div>
+                <nav aria-label="Pagination">
+                    <ul class="pagination pagination-light mb-0">
+                        <li class="page-item text-nowrap">
+                            <span class="page-link page-link-static">@Model.Page / @Model.TotalPage</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Model.PrevPageLink" aria-label="Next">
+                                <i class="fi-chevron-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="@Model.NextPageLink" aria-label="Next">
+                                <i class="fi-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section vendor {
+    <script src="~/Scripts/User/nouislider.min.js"></script>
+    <script src="~/Scripts/User/cleave.min.js"></script>
+}
+
+@section js {
+    <script>
+        function changeProvince(e) {
+            const provinceId = e.value;
+            window.location.href = "/User/News/Index?Pid=" + provinceId;
+        }
+
+        function changeCategory(e) {
+            const cateId = e;
+            const provinceId = @Model.ProvinceId;
+            const yearFrom = @Model.YearFrom;
+            const yearTo = @Model.YearTo;
+            window.location.href = `/User/News/Index?Cid=${cateId}&Pid=${provinceId}&Yf=${yearFrom}&Yt=${yearTo}`;
+        }
+
+        function changeYear(e) {
+            const yearFrom = e.value;
+            const provinceId = @Model.ProvinceId;
+            const cateId = @Model.CategoryId;
+            const yearTo = @Model.YearTo;
+            window.location.href = `/User/News/Index?Cid=${cateId}&Pid=${provinceId}&Yf=${yearFrom}&Yt=${yearTo}`;
+        }
+
+        function changeYearTo(e) {
+            const yearTo = e.value;
+            const provinceId = @Model.ProvinceId;
+            const cateId = @Model.CategoryId;
+            const yearFrom = @Model.YearFrom;
+            window.location.href = `/User/News/Index?Cid=${cateId}&Pid=${provinceId}&Yf=${yearFrom}&Yt=${yearTo}`;
+        }
+        
+        function sortNews(e) {
+            const sortType = e.value;
+            const provinceId = @Model.ProvinceId;
+            const cateId = @Model.CategoryId;
+            const yearFrom = @Model.YearFrom;
+            const yearTo = @Model.YearTo;
+            
+            const St = sortType.startsWith("asc") ? "asc" : "desc";
+            const Sb = sortType.includes("price") ? "price" : "created_date";
+            window.location.href = `/User/News/Index?Cid=${cateId}&Pid=${provinceId}&Yf=${yearFrom}&Yt=${yearTo}&Sb=${Sb}&St=${St}`;
+        }
+        
+        
+        function changePriceFrom(e){
+            const priceFrom = e.value;
+            const priceTo = @Model.PriceTo;
+            const provinceId = @Model.ProvinceId;
+            const cateId = @Model.CategoryId;
+            const yearFrom = @Model.YearFrom;
+            const yearTo = @Model.YearTo;
+            window.location.href = `/User/News/Index?Cid=${cateId}&Pid=${provinceId}&Yf=${yearFrom}&Yt=${yearTo}&Pf=${priceFrom}&Pt=${priceTo}`;
+        }
+        
+        function changePriceTo(e){
+            const priceTo = e.value;
+            const priceFrom = @Model.PriceFrom;
+            const provinceId = @Model.ProvinceId;
+            const cateId = @Model.CategoryId;
+            const yearFrom = @Model.YearFrom;
+            const yearTo = @Model.YearTo;
+            window.location.href = `/User/News/Index?Cid=${cateId}&Pid=${provinceId}&Yf=${yearFrom}&Yt=${yearTo}&Pt=${priceTo}&Pf=${priceFrom}`;
+        }
+        
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}-->

@@ -1,0 +1,125 @@
+﻿<!--@model ChoTotAsp.Areas.User.ViewModel.PostViewModel
+
+@{
+    ViewBag.Title = "Đăng tin";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+@section css {
+    <link rel="stylesheet" media="screen" href="~/Content/User/leaflet.css"/>
+    <link rel="stylesheet" media="screen" href="~/Content/User/filepond-plugin-image-preview.min.css"/>
+    <link rel="stylesheet" media="screen" href="~/Content/User/filepond.min.css"/>
+}-->
+
+<!-- Page container-->
+<!--<div class="container mt-5 mb-md-4 py-5">
+    @using (Html.BeginForm("Create", "Post", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data",
+                @class = "row",
+                id = "post-form"
+            }))
+    {-->
+        <!-- Page content-->
+        <!--<div class="col-lg-8">-->
+            <!-- Breadcrumb-->
+            <!--<nav class="mb-3 pt-md-3" aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-light">
+                    <li class="breadcrumb-item">
+                        <a href="/User/Home">Trang chủ</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Đăng tin</li>
+                </ol>
+            </nav>-->
+            <!-- Title-->
+            <!--<div class="mb-4">
+                <h1 class="h2 text-light mb-0">Đăng thông tin sản phẩm của bạn cần bán vào đây</h1>
+            </div>
+            @Html.HiddenFor(m => m.Post.ProductId)
+            @Html.HiddenFor(m => m.Post.Images)-->
+            <!-- Basic info-->
+            <!--<section class="card card-light card-body border-0 shadow-sm p-4 mb-4" id="basic-info">
+                <h2 class="h4 text-light mb-4"><i class="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>Thông tin cơ bản</h2>
+                <div class="mb-3">
+                    <label class="form-label text-light" for="sc-title">Tiêu đề <span class="text-danger">*</span></label>
+                    @Html.TextBoxFor(m => m.Post.Title, new { @class = "form-control form-control-light", @id = "sc-title", @placeholder = "Tiêu đề cho sản phẩm của bạn", @required = "required" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-light" for="sc-phone">Số điện thoại<span class="text-danger">*</span></label>
+                    @Html.TextBoxFor(m => m.Post.PhoneNumber, new { @class = "form-control form-control-light", @id = "sc-phone", @placeholder = "Số điện thoại của bạn", @required = "required" })
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label text-light" for="sc-province">Tỉnh thành <span class="text-danger">*</span></label>
+                        @Html.DropDownListFor(m => m.Post.ProvinceId, Model.DropdownProvinces, "-- Chọn tỉnh thành --", new { @class = "form-select form-select-light", @id = "sc-province", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label text-light" for="sc-category">Thể loại <span class="text-danger">*</span></label>
+                        @Html.DropDownListFor(m => m.Post.CategoryId, Model.DropdownCategory, "-- Chọn thể loại --", new { @class = "form-select form-select-light", @id = "sc-category", @required = "required" })
+                    </div>
+                </div>
+            </section>-->
+            <!-- Price-->
+            <!--<section class="card card-light card-body border-0 shadow-sm p-4 mb-4" id="price">
+                <h2 class="h4 text-light mb-4"><i class="fi-cash text-primary fs-5 mt-n1 me-2"></i>Giá</h2>
+                <label class="form-label text-light" for="sc-price">Giá <span class="text-danger">*</span></label>
+                <div class="d-sm-flex mb-2">
+                    <select class="form-select form-select-light w-25 me-2 mb-2">
+                        <option value="vnd">đ</option>
+                    </select>
+                    @Html.TextBoxFor(m => m.Post.Price, new { type = "number", @class = "form-control form-control-light w-100 me-2 mb-2", @id = "sc-price", @min = "0", @step = "10", @value = "10000", @required = "required" })
+                </div>
+                <div class="border-top border-light mt-2 pt-4">
+                    <label class="form-label text-light" for="sc-description">Mô tả </label>
+                    @Html.TextAreaFor(m => m.Post.Description, new { @class = "form-control form-control-light", @id = "sc-description", @rows = "5", @placeholder = "Mô tả sản phẩm của bạn" })
+                </div>
+            </section>-->
+            <!-- Photos / video-->
+            <!--<section class="card card-light card-body shadow-sm p-4 mb-4" id="photos">
+                <h2 class="h4 text-light mb-4"><i class="fi-image text-primary fs-5 mt-n1 me-2"></i>Photos / video</h2>
+                <div class="alert alert-warning bg-faded-warning border-warning mb-4" role="alert">
+                    <div class="d-flex">
+                        <i class="fi-alert-circle me-2 me-sm-3"></i>
+                        <p class="fs-sm mb-1">The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main picture first.
+                    </div>
+                </div>
+                <input class="file-uploader file-uploader-grid bg-faded-light border-light"
+                       name="files"
+                       type="file" multiple
+                       id="mainImageInput"
+                       data-max-file-size="10MB" accept="image/*"
+                       data-label-idle="&lt;div class=&quot;btn btn-primary mb-3&quot;&gt;&lt;i class=&quot;fi-cloud-upload me-1&quot;&gt;&lt;/i&gt;Upload photos / video&lt;/div&gt;&lt;div class=&quot;text-light opacity-70&quot;&gt;or drag them in&lt;/div&gt;">
+            </section>
+            <button type="button" onclick="test()">test sss</button>
+            <div class="d-sm-flex justify-content-between pt-2">
+                <button type="submit" class="btn btn-primary btn-lg d-block mb-2">Lưu và tiếp tục</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section vendor {
+    <script src="~/Scripts/User/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-preview.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-crop.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-resize.min.js"></script>
+    <script src="~/Scripts/User/filepond-plugin-image-transform.min.js"></script>
+    <script src="~/Scripts/User/filepond.min.js"></script>
+    <script src="~/Scripts/User/filepond.jquery.js"></script>
+    <script src="~/Scripts/User/cleave.min.js"></script>
+}
+
+@section js {
+    <script src="~/Scripts/User/post.js"> </script>
+    <script>
+        const imageUrls = '@(string.Join("$$", Model.Post.Images.Select(item => item.ImageUrl).ToArray()))'.split('$$');
+        // Set FilePond options
+        imageUrls.forEach(url => {
+            pp.addFile(url);
+        });
+    </script>
+}-->

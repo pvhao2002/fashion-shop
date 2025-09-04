@@ -1,0 +1,70 @@
+﻿@using ChoTotAsp.Utils
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title - GShop</title>
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Assets/User/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Assets/User/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Assets/User/favicon-16x16.png">
+    <link rel="mask-icon" color="#5bbad5" href="~/Assets/User/safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#766df4">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" type="text/css" href="~/Content/User/page-loading.css"/>
+    <!-- Vendor Styles-->
+    <link rel="stylesheet" media="screen" href="~/Content/User/simplebar.min.css"/>
+    <link rel="stylesheet" media="screen" href="~/Content/User/tiny-slider.css"/>
+    @RenderSection("css", false)
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="~/Content/User/theme.min.css">
+    <!-- Page loading scripts-->
+    <script src="~/Scripts/User/page-loading.js"></script>
+    <script src="~/Scripts/User/jquery.min.js"></script>
+</head>
+<!-- Body-->
+<body class="bg-dark">
+<!-- Google Tag Manager (noscript)-->
+<noscript>
+    <iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WKV3GT5" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
+</noscript>
+<!-- Page loading spinner-->
+<div class="page-loading active">
+    <div class="page-loading-inner">
+        <div class="page-spinner"></div><span>Loading...</span>
+    </div>
+</div>
+<!-- Navbar-->
+
+<main class="page-wrapper">
+    @Html.Partial("Header")
+    @RenderBody()
+</main>
+<!-- Footer-->
+@Html.Partial("Footer")
+<!-- Back to top button-->
+<a class="btn-scroll-top" href="#top" data-scroll>
+    <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon fi-chevron-up"> </i>
+</a>
+@Html.Partial("Toast")
+<script src="~/Scripts/User/bootstrap.bundle.min.js"></script>
+<script src="~/Scripts/User/simplebar.min.js"></script>
+<script src="~/Scripts/User/smooth-scroll.polyfills.min.js"></script>
+<script src="~/Scripts/User/tiny-slider.js"></script>
+<script src="~/Scripts/User/jarallax.min.js"></script>
+<script src="~/Scripts/User/rellax.min.js"></script>
+@RenderSection("vendor", false)
+<script src="~/Scripts/User/theme.js"></script>
+<script src="~/Scripts/User/main.js"></script>
+<script src="~/Scripts/toast.js"></script>
+@RenderSection("js", false)
+@if (TempData[Constant.STATUS_RS] != null)
+{
+    <script>
+        showAlert(`@Html.Raw(TempData[Constant.MESSAGE_RS])`, '@TempData[Constant.STATUS_RS]');
+    </script>
+}
+</body>
+</html>
