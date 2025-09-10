@@ -1,14 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
 namespace ChoTotAsp.Entity
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
-    public partial class category
+    public class category
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public category()
         {
             products = new HashSet<product>();
@@ -20,7 +19,7 @@ namespace ChoTotAsp.Entity
         [StringLength(100)]
         public string category_name { get; set; }
 
-        public string description { get; set; }
+        public string image { get; set; }
 
         [StringLength(20)]
         public string status { get; set; }
@@ -29,7 +28,7 @@ namespace ChoTotAsp.Entity
 
         public DateTime? updated_at { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<product> products { get; set; }
     }
 }

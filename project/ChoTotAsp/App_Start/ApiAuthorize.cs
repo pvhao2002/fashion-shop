@@ -1,10 +1,8 @@
-﻿using ChoTotAsp.Entity;
-using ChoTotAsp.Utils;
-using System.Data.Entity;
-using System.Linq;
-using System.Net.Mime;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ChoTotAsp.Entity;
+using ChoTotAsp.Utils;
 
 namespace ChoTotAsp
 {
@@ -32,7 +30,7 @@ namespace ChoTotAsp
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new JsonResult()
+            filterContext.Result = new JsonResult
             {
                 Data = new { success = false, message = "Unauthorized" },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet

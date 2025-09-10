@@ -1,10 +1,9 @@
-﻿using ChoTotAsp.Entity;
-using ChoTotAsp.Utils;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ChoTotAsp.Entity;
+using ChoTotAsp.Utils;
 
 namespace ChoTotAsp
 {
@@ -19,7 +18,7 @@ namespace ChoTotAsp
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            using(var ctx = new DBConnection())
+            using (var ctx = new DBConnection())
             {
                 var userId = AuthenticationUtil.GetUserId(httpContext.Request, httpContext.Session);
 

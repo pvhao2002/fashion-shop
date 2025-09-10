@@ -1,7 +1,7 @@
-﻿USE master;
-GO
+IF DB_ID('fashion_store') IS NOT NULL
 DROP DATABASE fashion_store;
 GO
+
 CREATE DATABASE fashion_store;
 GO
 USE fashion_store;
@@ -15,11 +15,10 @@ CREATE TABLE users
     password_hash NVARCHAR(255),
     phone         NVARCHAR(20),
     address       NVARCHAR(MAX),
-    avatar        NVARCHAR(MAX),
     status        NVARCHAR(20) DEFAULT 'active'
         CHECK (status IN ('active', 'inactive', 'banned')),
-    role          NVARCHAR(20) DEFAULT 'user'
-        CHECK (role IN ('user', 'admin')),
+    role          NVARCHAR(20) DEFAULT 'customer'
+        CHECK (role IN ('customer', 'admin')),
     created_at    DATETIME     DEFAULT GETDATE()
 );
 
@@ -27,7 +26,7 @@ CREATE TABLE categories
 (
     category_id   INT IDENTITY (1,1) PRIMARY KEY,
     category_name NVARCHAR(100),
-    image         NVARCHAR(MAX),
+    description   NVARCHAR(MAX),
     status        NVARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
     created_at    DATETIME     DEFAULT GETDATE(),
     updated_at    DATETIME     DEFAULT GETDATE()
@@ -137,9 +136,5 @@ CREATE TABLE product_comments
     created_at DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
-    FOREIGN KEY (parent_id) REFERENCES product_comments (comment_id) ON DELETE NO ACTION
+    FOREIGN KEY (parent_id) REFERENCES product_comments (comment_id) ON DELETE CASCADE
 );
-
-go
-insert into users(full_name, email, password_hash, role)
-values (N'Quản trị viên', 'admin@gmail.com', '1234qwer', 'admin')

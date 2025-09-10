@@ -55,21 +55,21 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="vsm--item">
-                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @((isCategoryManagement || isProductManagement) ? "vsm--link_active" : "")" onclick="showSubItem(this)">
+                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @((isCategoryManagement) ? "vsm--link_active" : "")" onclick="showSubItem(this)">
                     <i class="fas fa-store" style="padding-right: 10px">
                     </i>
-                    <span class="vsm--title">Sản phẩm</span>
+                    <span class="vsm--title text-capitalize">Loại Sản phẩm</span>
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
                 <div class="vsm--dropdown" style="height: auto; display: none">
                     <div class="vsm--list list_show">
                         <div class="vsm--item">
-                            <a href="/Admin/ProductManagement" class="vsm--link vsm--link_level-2 @(isProductManagement ? "vsm--link_active" : "")" target="_self">
-                                <span class="vsm--title"> Quản lý sản phẩm</span>
+                            <a href="/Admin/CategoryManagement/Create" class="vsm--link vsm--link_level-2 @(isCategoryManagement ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title text-capitalize"> Quản lý Loại sản phẩm</span>
                                 <p class="vsm--title sidebar_sub_title">
-                                    Quản lý sản phẩm
+                                    Quản lý Loại sản phẩm
                                 </p>
                             </a>
                         </div>
@@ -83,6 +83,82 @@
                                 <span class="vsm--title">Danh mục sản phẩm</span>
                                 <p class="vsm--title sidebar_sub_title">
                                     Danh mục sản phẩm
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vsm--item">
+                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @((isCategoryManagement || isProductManagement) ? "vsm--link_active" : "")" onclick="showSubItem(this)">
+                    <i class="fas fa-store" style="padding-right: 10px">
+                    </i>
+                    <span class="vsm--title">Sản phẩm</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/ProductManagement" class="vsm--link vsm--link_level-2 @(false ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title"> Quản lý sản phẩm</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Quản lý sản phẩm
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/CategoryManagement" class="vsm--link vsm--link_level-2 @(false ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title">Danh mục sản phẩm</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Danh mục sản phẩm
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vsm--item">
+                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @((isCategoryManagement) ? "vsm--link_active" : "")" onclick="showSubItem(this)">
+                    <i class="fas fa-store" style="padding-right: 10px">
+                    </i>
+                    <span class="vsm--title text-capitalize">Đơn hàng</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/OrderAdmin" class="vsm--link vsm--link_level-2 @(false ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title text-capitalize"> Quản lý đơn hàng</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Quản lý đơn hàng
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vsm--item">
+                <a href="javascript:void(0)" class="router-link-exact-active router-link-active vsm--link vsm--link_level-1 @((isCategoryManagement) ? "vsm--link_active" : "")" onclick="showSubItem(this)">
+                    <i class="fas fa-store" style="padding-right: 10px">
+                    </i>
+                    <span class="vsm--title text-capitalize">Bình luận / Phản hồi</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <div class="vsm--dropdown" style="height: auto; display: none">
+                    <div class="vsm--list list_show">
+                        <div class="vsm--item">
+                            <a href="/Admin/OrderAdmin" class="vsm--link vsm--link_level-2 @(false ? "vsm--link_active" : "")" target="_self">
+                                <span class="vsm--title text-capitalize"> Quản lý bình luận</span>
+                                <p class="vsm--title sidebar_sub_title">
+                                    Quản lý bình luận
                                 </p>
                             </a>
                         </div>

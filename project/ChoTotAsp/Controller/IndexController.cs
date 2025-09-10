@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using ChoTotAsp.Entity;
+using ChoTotAsp.Utils;
 
 namespace ChoTotAsp.Controller
 {
@@ -7,7 +9,12 @@ namespace ChoTotAsp.Controller
         public ActionResult Index()
         {
             // Redirect to the Index action of HomeController
-            return RedirectToAction("Index", "Home", new { area = "User" });
+            return RedirectToAction("Index", "Home",
+                new
+                {
+                    area = AuthenticationUtil.getCurrentUser(Request, Session) ??
+                           new user { role = Constant.ROLE_USER }
+                });
         }
     }
 }
