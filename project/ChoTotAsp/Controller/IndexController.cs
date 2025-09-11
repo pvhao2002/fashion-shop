@@ -8,12 +8,14 @@ namespace ChoTotAsp.Controller
     {
         public ActionResult Index()
         {
+            var user = AuthenticationUtil.getCurrentUser(Request, Session) ?? new user { role = Constant.ROLE_USER };
+            var area = user.role;
+            var controller = Constant.ROLE_ADMIN.Equals(area) ? "HomeAdmin" : "Home";
             // Redirect to the Index action of HomeController
-            return RedirectToAction("Index", "Home",
+            return RedirectToAction("Index", controller,
                 new
                 {
-                    area = AuthenticationUtil.getCurrentUser(Request, Session) ??
-                           new user { role = Constant.ROLE_USER }
+                    area
                 });
         }
     }

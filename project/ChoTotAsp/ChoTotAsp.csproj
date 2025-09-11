@@ -296,6 +296,7 @@
     <Compile Include="Areas\Admin\Controllers\LogoutAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\Admin\Payload\CategoryPayload.cs" />
     <Compile Include="Areas\Admin\ViewModel\CategoryViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\ChallengeResult.cs" />
     <Compile Include="Areas\Admin\ViewModel\ProductViewModel.cs" />
@@ -342,7 +343,6 @@
     <Compile Include="Utils\MailUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\CategoryManagement\Create.cshtml" />
     <Content Include="Areas\Admin\Views\CategoryManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using ChoTotAsp.Areas.Admin.Payload;
 using ChoTotAsp.Areas.Admin.ViewModel;
 using ChoTotAsp.Entity;
 using ChoTotAsp.Utils;
@@ -38,12 +37,12 @@ namespace ChoTotAsp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> InsertOrUpdate(category model, HttpPostedFileBase imageFile)
+        public async Task<JsonResult> InsertOrUpdate(CategoryPayload model)
         {
             JsonResult jsonResult;
             using (var ctx = new DBConnection())
             {
-                if (string.IsNullOrEmpty(model.category_name) || string.IsNullOrEmpty(model.status))
+                if (string.IsNullOrEmpty(model.categoryName) || string.IsNullOrEmpty(model.status))
                 {
                     jsonResult = Json(
                         new { success = false, message = "Dữ liệu không hợp lệ" },
@@ -52,22 +51,11 @@ namespace ChoTotAsp.Areas.Admin.Controllers
                     return await Task.FromResult(jsonResult);
                 }
 
-                // Nếu có upload ảnh thì convert sang base64
-                if (imageFile != null && imageFile.ContentLength > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        await imageFile.InputStream.CopyToAsync(ms);
-                        var fileBytes = ms.ToArray();
-                        model.image = Convert.ToBase64String(fileBytes);
-                    }
-                }
-
                 try
                 {
-                    if (model.category_id > 0) // Update
+                    if (model.categoryId > 0) // Update
                     {
-                        var existingCategory = await ctx.categories.FindAsync(model.category_id);
+                        var existingCategory = await ctx.categories.FindAsync(model.categoryId);
                         if (existingCategory == null)
                         {
                             jsonResult = Json(
@@ -77,21 +65,21 @@ namespace ChoTotAsp.Areas.Admin.Controllers
                             return await Task.FromResult(jsonResult);
                         }
 
-                        existingCategory.category_name = model.category_name;
+                        existingCategory.category_name = model.categoryName;
                         existingCategory.updated_at = DateTime.Now;
 
-                        if (!string.IsNullOrEmpty(model.image))
+                        if (!string.IsNullOrEmpty(model.categoryImage))
                         {
-                            existingCategory.image = model.image; // chỉ update ảnh khi có file mới
+                            existingCategory.image = model.categoryImage; // chỉ update ảnh khi có file mới
                         }
                     }
                     else // Insert
                     {
                         var newCategory = new category
                         {
-                            category_name = model.category_name,
+                            category_name = model.categoryName,
                             status = model.status,
-                            image = model.image,
+                            image = model.categoryImage,
                             created_at = DateTime.Now,
                             updated_at = DateTime.Now
                         };
@@ -106,7 +94,7 @@ namespace ChoTotAsp.Areas.Admin.Controllers
                         JsonRequestBehavior.AllowGet
                     );
                 }
-                catch (DbEntityValidationException ex)
+                catch (Exception ex)
                 {
                     jsonResult = Json(
                         new { success = false, message = ex.Message },
@@ -116,12 +104,6 @@ namespace ChoTotAsp.Areas.Admin.Controllers
             }
 
             return await Task.FromResult(jsonResult);
-        }
-
-
-        public ActionResult Create()
-        {
-            return View(new category());
         }
 
         public async Task<JsonResult> GetCategoryById(int categoryId)
@@ -143,60 +125,11 @@ namespace ChoTotAsp.Areas.Admin.Controllers
                         {
                             categoryId = category.category_id,
                             categoryName = category.category_name,
+                            CategoryImage = category.image,
                             Status = category.status,
                         }
                     },
                     JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> EditCategory(int categoryId, string categoryName, string categoryImage,
-            string status)
-        {
-            using (var ctx = new DBConnection())
-            {
-                if (string.IsNullOrEmpty(status) || string.IsNullOrEmpty(categoryName) ||
-                    string.IsNullOrEmpty(categoryImage))
-                {
-                    return Json(new { success = false, message = "Invalid Category data" });
-                }
-
-                var category = await ctx.categories.FirstOrDefaultAsync(a => a.category_id == categoryId);
-
-                if (category == null)
-                {
-                    return Json(new { success = false, message = "Category not found" });
-                }
-
-                category.status = status;
-                category.category_name = categoryName;
-                try
-                {
-                    await ctx.SaveChangesAsync();
-                    return Json(new { success = true, message = "Category updated successfully" });
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    return Json(new { success = false, message = ex.Message });
-                }
-            }
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> AddCategory(string categoryName, string categoryImage, string status)
-        {
-            using (var ctx = new DBConnection())
-            {
-                var category = new category()
-                {
-                    category_name = categoryName,
-                    status = status,
-                    created_at = DateTime.Now,
-                };
-                ctx.categories.Add(category);
-                await ctx.SaveChangesAsync();
-                return Json(new { success = true, message = "Category added successfully" });
             }
         }
     }

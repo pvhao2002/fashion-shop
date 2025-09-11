@@ -2,7 +2,7 @@
     categoryId: 0,
     categoryName: '',
     categoryImage: '',
-    status: 'ACTIVE'
+    status: 'inactive'
 };
 let isEdit = false;
 
@@ -18,7 +18,7 @@ function openDialog(categoryId) {
     } else {
         cateTitle.textContent = 'Sửa danh mục';
         isEdit = true;
-        categoryEdit.CategoryId = categoryId;
+        categoryEdit.categoryId = categoryId;
     }
 
     modalContainer.style.removeProperty('display');
@@ -36,11 +36,11 @@ function openDialog(categoryId) {
                 categoryEdit = response.data;
 
                 const img = document.getElementById('preview');
-                img.src = categoryEdit.CategoryImage;
+                img.src = categoryEdit.categoryImage;
                 img.style.display = 'block';
 
-                document.getElementById('form-category-name').value = categoryEdit.CategoryName;
-                if (categoryEdit.Status === 'ACTIVE') {
+                document.getElementById('form-category-name').value = categoryEdit.categoryName;
+                if (categoryEdit.status === 'ACTIVE') {
                     document.getElementById('status-active').checked = true;
                 } else {
                     document.getElementById('status-inactive').checked = true;
@@ -62,7 +62,7 @@ document.getElementById('upload').addEventListener('change', function (event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
-            categoryEdit.CategoryImage = e.target.result;
+            categoryEdit.categoryImage = e.target.result;
             preview.src = e.target.result;
             preview.style.display = 'block';
         };
@@ -73,28 +73,18 @@ document.getElementById('upload').addEventListener('change', function (event) {
 });
 
 document.getElementById('form-category-name').addEventListener('input', function (event) {
-    categoryEdit.CategoryName = event.target.value;
+    categoryEdit.categoryName = event.target.value;
 });
 
 document.querySelectorAll('input[name="status"]').forEach(function (radio) {
     radio.addEventListener('change', function (event) {
-        categoryEdit.Status = event.target.value;
+        categoryEdit.status = event.target.value;
     });
 });
 
-function saveCategory() {
-    console.log(categoryEdit);
-    console.log(isEdit);
-    if (isEdit) {
-        editCategory();
-    } else {
-        addCategory();
-    }
-}
-
-function editCategory() {
+function insertOrUpdate() {
     $.ajax({
-        url: '/Admin/CategoryManagement/EditCategory',
+        url: '/Admin/CategoryManagement/InsertOrUpdate',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(categoryEdit),
@@ -111,29 +101,3 @@ function editCategory() {
     });
 }
 
-
-function addCategory() {
-    const formData = new FormData();
-    formData.append('categoryName', categoryEdit.CategoryName);
-    formData.append('categoryImage', categoryEdit.CategoryImage);
-    formData.append('status', categoryEdit.Status);
-
-    fetch('/Admin/CategoryManagement/AddCategory', {
-        method: 'POST',
-        body: formData
-    }).then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showAlert(data.message, 'success');
-                setTimeout(() => {
-                    location.reload();
-                }, 400);
-            } else {
-                showAlert(data.message, 'warning');
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            showAlert(error, 'warning');
-        });
-}
