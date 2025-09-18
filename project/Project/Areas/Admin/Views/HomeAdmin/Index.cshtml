@@ -1,0 +1,63 @@
+﻿@model Project.Areas.Admin.ViewModel.DashboardViewModel
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card bg-auth">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Số lượng người dùng</h5>
+                    <p class="card-text text-center">@Model.TotalUsers</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card bg-auth">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Số lượng loại sản phẩm</h5>
+                    <p class="card-text text-center">@Model.TotalCategories</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card bg-auth">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Số lượng tin nhắn</h5>
+                    <p class="card-text text-center">@Model.TotalMessages</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card bg-auth">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Số lượng bài đăng</h5>
+                    <p class="card-text text-center">@Model.TotalProducts</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card bg-auth">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Số lượng bài đăng đang chờ xét duyệt</h5>
+                    <p class="card-text text-center">@Model.TotalProductPending</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card bg-auth">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Số lượng bài đăng đã xét duyệt</h5>
+                    <p class="card-text text-center">@Model.TotalProductApproved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

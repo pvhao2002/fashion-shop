@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Project.Entity.product>
+@{
+    var firstItem = Model.FirstOrDefault() ?? new Project.Entity.product();
+    var secondList = Model.Skip(1).Take(2);
+}
+<section class="container pt-sm-1 pb-5 mb-md-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 pb-sm-2">
+        <h2 class="h3 text-light mb-2 mb-sm-0">
+            Sản phẩm bán chạy
+        </h2>
+        <a class="btn btn-link btn-light fw-normal px-0" href="/User/Product">
+            Xem tất cả
+            <i
+                class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2">
+            </i>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Item-->
+            <div class="card card-light card-hover mb-4 mb-lg-0" style="height: calc(460px + 1.5rem);">
+                <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                    <a class="img-overlay" href="/User/News/Details/@firstItem.product_id"></a>
+                    <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                        <span class="d-table badge bg-info mb-1">Sản phẩm mới</span>
+                        @Html.Partial("Verified")
+                    </div>
+                    <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                        <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                                onclick="addToWishList(@firstItem.product_id)"
+                                data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                            <i class="fi-heart"></i>
+                        </button>
+                    </div>
+                    <div class="tns-carousel-inner">
+                        @foreach (var img in firstItem.product_images)
+                        {
+                            <img src="@img.image_url" alt="Image" style="width: 634px; height: 262px; object-fit: cover;">
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between pb-1">
+                        <span class="fs-sm text-light me-3">@firstItem.created_at</span>
+                    </div>
+                    <h3 class="h6 mb-1">
+                        <a class="nav-link-light" href="/User/News/Details/@firstItem.product_id">
+                            @firstItem.name
+                        </a>
+                    </h3>
+                    <div class="text-primary fw-bold mb-1">@($"{firstItem.price:n0}") đ</div>
+                    <div class="fs-sm text-light opacity-70">
+                        <i class="fi-map-pin me-1"></i>Toàn quốc
+                    </div>
+                </div>
+                <div class="card-footer border-0 pt-0">
+                    <div class="border-top border-light pt-3">
+                        <div class="row g-2">
+                            @firstItem.description
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            @foreach (var item in secondList)
+            {
+                <div class="card card-light card-hover card-horizontal mb-4" style="height: 230px;">
+                    <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                        <a class="img-overlay" href="/User/News/Details/@item.product_id"></a>
+                        <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                            <span class="d-table badge bg-info mb-1">Đã sử dụng</span>
+                            @Html.Partial("Verified")
+                        </div>
+                        <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                            <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                                    onclick="addToWishList(@item.product_id)"
+                                    data-bs-toggle="tooltip" data-bs-placement="left" title="Thêm vào yêu thích">
+                                <i class="fi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="tns-carousel-inner position-absolute top-0 h-100">
+                            @foreach (var img in item.product_images)
+                            {
+                                <img src="@img.image_url" alt="Image" style="width: 247px; height: 257px; object-fit: cover;">
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between pb-1">
+                            <span class="fs-sm text-light me-3">@item.created_at</span>
+                        </div>
+                        <h3 class="h6 mb-1">
+                            <a class="nav-link-light" href="/User/News/Detail/@item.product_id"> @item.name</a>
+                        </h3>
+                        <div class="text-primary fw-bold mb-1">
+                            @($"{item.price:n0}") đ
+                        </div>
+                        <div class="fs-sm text-light opacity-70">
+                            <i class="fi-map-pin me-1"></i>Toàn quốc
+                        </div>
+                        <div class="border-top border-light mt-3 pt-3">
+                            <div class="row g-2">
+                                @item.description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

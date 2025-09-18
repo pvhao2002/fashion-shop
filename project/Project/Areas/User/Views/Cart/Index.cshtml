@@ -1,0 +1,106 @@
+﻿@model Project.Areas.User.ViewModel.CartViewModel
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .cart-item:hover {
+        background-color: #f8f9fa;
+        border: 1px solid #446a92;
+    }
+</style>
+
+<div class="container py-5">
+    <nav class="mb-3 pt-md-3" aria-label="Breadcrumb">
+        <ol class="breadcrumb breadcrumb-light">
+            <li class="breadcrumb-item"><a href="/User">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+        </ol>
+    </nav>
+
+    @if (Model.Cart == null || !Model.Cart.cartItems.Any())
+    {
+        <div class="text-center py-5">
+            <img src="~/Assets/User/shopify-icon.svg" alt="Empty Cart" class="mb-3" style="max-width:200px;"/>
+            <h5>Giỏ hàng của bạn đang trống</h5>
+            <a href="/User/Home/Index" class="btn btn-primary mt-3">Tiếp tục mua sắm</a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <!-- Cart items -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        @foreach (var item in Model.Cart.cartItems)
+                        {
+                            <a class="cart-item d-flex align-items-center border-bottom py-3 text-decoration-none"
+                               href="/User/Product/Details/@item.Product.ProductId"
+                               style="cursor: pointer;">
+                                <img src="@(item.Product.Images[0]?.ImageUrl)" alt="@item.Product.Name"
+                                     class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;"/>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">@item.Product.Name</h6>
+                                    <p class="mb-1 text-muted">@($"{item.Product.Price:n0}") đ</p>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-sm btn-outline-secondary me-2"
+                                                onclick="updateQuantity(@item.cartItemId, -1)">
+                                            <i class="fi-minus"></i>
+                                        </button>
+                                        <input type="text" class="form-control form-control-sm text-center"
+                                               value="@item.quantity" style="width:60px;" readonly/>
+                                        <button class="btn btn-sm btn-outline-secondary ms-2"
+                                                onclick="updateQuantity(@item.cartItemId, 1)">
+                                            <i class="fi-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <h6 class="mb-2">@($"{item.totalItemPrice:n0}") đ</h6>
+                                    <button class="btn btn-sm btn-outline-danger"
+                                            onclick="removeItem(@item.cartItemId)">
+                                        <i class="fi-trash"></i> Xóa
+                                    </button>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Cart summary -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm position-sticky" style="top: 120px; position: sticky;">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3">Tóm tắt đơn hàng</h5>
+                        <ul class="list-unstyled mb-3">
+                            <li class="d-flex justify-content-between mb-2">
+                                <span>Tổng sản phẩm:</span>
+                                <strong>@Model.Cart.totalItems</strong>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span>Tạm tính:</span>
+                                <strong>@($"{Model.Cart.totalPrice:n0}") đ</strong>
+                            </li>
+                            <li class="d-flex justify-content-between border-top pt-2">
+                                <span class="fw-bold">Thành tiền:</span>
+                                <strong class="text-primary fs-5">@($"{Model.Cart.totalPrice:n0}") đ</strong>
+                            </li>
+                        </ul>
+                        <a href="/User/Home/Index" class="btn btn-outline-secondary w-100 mb-2">
+                            <i class="fi-shopping-bag me-2"></i>Tiếp tục mua sắm
+                        </a>
+                        <a href="/User/Cart/CheckOut/" class="btn btn-primary w-100">
+                            <i class="fi-credit-card me-2"></i>Tiến hành thanh toán
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section vendor {
+    <script src="~/Scripts/User/cart.js"></script>
+}

@@ -1,0 +1,179 @@
+﻿@using Project.Utils
+@model Project.Areas.Admin.ViewModel.ProductViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Quản lý sản phẩm";
+}
+
+@section css {
+    <link rel="stylesheet" href="~/Content/Admin/product.index.css" type="text/css"/>
+}
+
+<div class="application mb-20">
+    <div class="app-content">
+        <form class="form-filter" action="/Admin/ProductManagement" method="get">
+            <div class="row row-custom">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nhập từ khóa tìm kiếm..." name="search"
+                               value="@Model.SearchTerm">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="v-select vs--single vs--searchable">
+                        <select name="status" class="vs__dropdown-toggle">
+                            <option disabled="disabled">Chọn trạng thái</option>
+                            <option value="all" @(Model.Status.Equals("all") ? "selected" : "")>Tất cả</option>
+                            <option value="active" @(Model.Status.Equals("active") ? "selected" : "")>Hoạt động</option>
+                            <option value="inactive" @(Model.Status.Equals("inactive") ? "selected" : "")>
+                                Ngưng kinh doanh
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn yellow btn-block fs-15">
+                        <span>Tìm</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.Products.Any())
+{
+    <table class="dashboard-packages">
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Tồn kho</th>
+            <th>Mô tả sản phẩm</th>
+            <th>Loại sản phẩm</th>
+            <th>Ngày cập nhật</th>
+            <th>Ảnh</th>
+            <th></th>
+        </tr>
+        <tbody>
+        @foreach (var pro in Model.Products)
+        {
+            <tr>
+                <td>
+                    <span>@pro.Name</span>
+                </td>
+                <td>@($"{@pro.Price:n0}") đ</td>
+                <td>@pro.Stock</td>
+                <td>@pro.Description</td>
+                <td>@(pro.Category?.CategoryName)</td>
+                <td>
+                    <span>@(pro?.UpdatedAt?.ToString("HH:mm dd/MM/yyyy"))</span>
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="showImages(this)"
+                            data-images='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(pro.Images.Select(it => it.ImageUrl)))'>
+                        Xem
+                    </button>
+
+                </td>
+                <td>
+                    <button class="btn btn-warning"
+                            data-product='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(pro))'
+                            onclick="openUpdateModal(this)">
+                        <i class="fas fa-edit" style="font-size: 22px;"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        Không tìm thấy sản phẩm nào
+    </div>
+}
+<!-- Modal xem ảnh -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ảnh sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+                <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="carouselInner">
+                        <!-- JS sẽ thêm ảnh ở đây -->
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateProductForm">
+                    <input type="hidden" id="UpdateProductId"/>
+                    <div class="form-group">
+                        <label>Danh mục</label>
+                        @Html.DropDownList("CategoryId", Model.Categories, "-- Chọn danh mục --", new { @class = "form-select", id = "CategoryId" })
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Tên sản phẩm</label>
+                        <input type="text" id="UpdateName" class="form-control"/>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>Mô tả</label>
+                        <textarea id="UpdateDescription" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>Giá</label>
+                        <input type="number" id="UpdatePrice" class="form-control"/>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>Tồn kho</label>
+                        <input type="number" id="UpdateStock" class="form-control"/>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label>Trạng thái</label>
+                        <select id="UpdateStatus" class="form-control">
+                            <option value="active">Hoạt động</option>
+                            <option value="inactive">Ngừng kinh doanh</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="updateProduct()">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section js {
+    <script src="~/Scripts/Admin/product.management.js"></script>
+}
+

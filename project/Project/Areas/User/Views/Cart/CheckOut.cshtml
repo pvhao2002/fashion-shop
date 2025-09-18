@@ -1,0 +1,101 @@
+﻿@model Project.Areas.User.ViewModel.CartViewModel
+
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Form thông tin khách hàng -->
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h4 class="mb-4">Thông tin thanh toán</h4>
+                    <form id="checkoutForm">
+                        <div class="mb-3">
+                            <label class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" name="fullName" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" name="phoneNumber" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ giao hàng</label>
+                            <textarea class="form-control" name="shippingAddress" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phương thức thanh toán</label>
+                            <select class="form-select" name="paymentMethod" required>
+                                <option value="COD">Thanh toán khi nhận hàng</option>
+                                <option value="VNPay">VNPay</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Ghi chú</label>
+                            <textarea class="form-control" name="note" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Đặt hàng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tóm tắt đơn hàng -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm position-sticky" style="top: 90px;">
+                <div class="card-body p-4">
+                    <h5 class="mb-3">Đơn hàng của bạn</h5>
+                    <ul class="list-group list-group-flush mb-3">
+                        @foreach (var item in Model.Cart.cartItems)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>@item.Product.Name</strong><br/>
+                                    <small>Số lượng: @item.quantity</small>
+                                </div>
+                                <span>@($"{item.totalItemPrice:n0}") đ</span>
+                            </li>
+                        }
+                    </ul>
+
+                    <!-- Ô nhập mã khuyến mãi -->
+                    <div class="mb-3">
+                        <label class="form-label">Mã khuyến mãi</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="promoCode" placeholder="Nhập mã..."/>
+                            <button type="button" class="btn btn-outline-primary" id="applyCoupon"
+                                    onclick="applyCoupon(@Model.Cart.totalPrice)">Áp dụng
+                            </button>
+                        </div>
+                        <small class="text-success d-none" id="couponMessage">Mã giảm giá hợp lệ!</small>
+                        <small class="text-danger d-none" id="couponError">Mã không hợp lệ.</small>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold">Tạm tính:</span>
+                        <span>@($"{Model.Cart.totalPrice:n0}") đ</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Giảm giá:</span>
+                        <span id="discountAmount">0 đ</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Phí vận chuyển:</span>
+                        <span>Miễn phí</span>
+                    </div>
+                    <hr/>
+                    <div class="d-flex justify-content-between fs-5">
+                        <span class="fw-bold">Tổng cộng:</span>
+                        <span class="text-primary fw-bold" id="finalTotal">@($"{Model.Cart.totalPrice:n0}") đ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section vendor {
+    <script src="~/Scripts/User/checkout.js"></script>
+}

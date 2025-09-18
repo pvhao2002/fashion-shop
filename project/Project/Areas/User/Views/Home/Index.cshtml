@@ -1,0 +1,19 @@
+﻿@model Project.Areas.User.ViewModel.HomeViewModel
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content-->
+<!-- Hero + Search form-->
+@Html.Partial("Hero")
+<!-- Body type selection-->
+@Html.Partial("Category", Model.Categories)
+<!-- Top offers-->
+@Html.Partial("Offer", Model.ProductList)
+<!-- Brands-->
+@Html.Partial("Brand")
+<!-- Features-->
+@Html.Partial("Feature")
+<!-- CTA carousel-->
+@Html.Partial("CTA")

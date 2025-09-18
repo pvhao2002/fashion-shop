@@ -1,0 +1,239 @@
+﻿@model Project.Areas.User.ViewModel.ProductViewModel
+
+@{
+  ViewBag.Title = "Chi tiết Sản phẩm";
+  Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+@section css {
+  <link rel="stylesheet" media="screen" href="~/Content/User/lightgallery-bundle.min.css"/>
+}
+
+<div class="container">
+  <div class="container mt-5 mb-md-4 py-5">
+    <!-- Breadcrumb-->
+    <nav class="mb-3 pt-md-3" aria-label="Breadcrumb">
+      <ol class="breadcrumb breadcrumb-light">
+        <li class="breadcrumb-item"><a href="/User">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="/User/Product">Sản phẩm</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chi tiết sản phẩm</li>
+      </ol>
+    </nav>
+    <!-- Title + Sharing-->
+    <div class="d-sm-flex align-items-end align-items-md-center justify-content-between position-relative mb-4"
+         style="z-index: 1025;">
+      <div class="me-3">
+        <h1 class="h2 text-light mb-md-0"> @Model.Product.Name</h1>
+        <div class="d-md-none">
+          <div class="d-flex align-items-center mb-3">
+            <div class="h3 mb-0 text-light">@($"{Model.Product.Price:n0}") đ</div>
+          </div>
+          <div class="d-flex flex-wrap align-items-center text-light mb-2">
+            <div class="text-nowrap border-end border-light pe-3 me-3"><i
+                class="fi-dashboard fs-lg opacity-70 me-2"></i><span class="align-middle">25K miles</span></div>
+            <div class="text-nowrap"><i class="fi-map-pin fs-lg opacity-70 me-2"></i><span class="align-middle">Chicago, IL 60603</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-nowrap pt-3 pt-sm-0">
+        <button class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-sm-2" type="button"
+                data-bs-toggle="tooltip" title="Add to Wishlist"><i class="fi-heart"></i></button>
+        <div class="dropdown d-inline-block" data-bs-toggle="tooltip" title="Share">
+          <button class="btn btn-icon btn-translucent-light btn-xs rounded-circle ms-2 mb-sm-2" type="button"
+                  data-bs-toggle="dropdown"><i class="fi-share"></i></button>
+          <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end my-1">
+            <button class="dropdown-item" type="button"><i class="fi-facebook fs-base opacity-75 me-2"></i>Facebook
+            </button>
+            <button class="dropdown-item" type="button"><i class="fi-twitter fs-base opacity-75 me-2"></i>Twitter
+            </button>
+            <button class="dropdown-item" type="button"><i class="fi-instagram fs-base opacity-75 me-2"></i>Instagram
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <!-- Gallery-->
+        <div class="tns-carousel-wrapper">
+          <div class="tns-slides-count text-light"><i class="fi-image fs-lg me-2"></i>
+            <div class="ps-1"><span class="tns-current-slide fs-5 fw-bold"></span><span
+                class="fs-5 fw-bold">/</span><span
+                class="tns-total-slides fs-5 fw-bold"></span></div>
+          </div>
+          <div class="tns-carousel-inner"
+               data-carousel-options="{&quot;navAsThumbnails&quot;: true, &quot;navContainer&quot;: &quot;#thumbnails&quot;, &quot;gutter&quot;: 12, &quot;responsive&quot;: {&quot;0&quot;:{&quot;controls&quot;: false},&quot;500&quot;:{&quot;controls&quot;: true}}}">
+            @foreach (var img in @Model.Product.Images)
+            {
+              <div><img class="rounded-3" src="@Html.Raw(img.ImageUrl)" alt="Image"
+                        style="height: 420px; width: 750px;"></div>
+            }
+          </div>
+        </div>
+        <ul class="tns-thumbnails" id="thumbnails">
+          @foreach (var img in @Model.Product.Images)
+          {
+            <li class="tns-thumbnail"><img src="@Html.Raw(img.ImageUrl)" alt="Thumbnail"
+                                           style="height: 100px; width: 140px;"></li>
+          }
+        </ul>
+        <!-- Specs-->
+        <div class="py-3 mb-3">
+          <h2 class="h4 text-light mb-4">Thông tin</h2>
+          <div class="row text-light">
+            <div class="col-sm-6 col-md-12 col-lg-6">
+              <ul class="list-unstyled">
+                <li class="mb-2"><strong>Danh mục:</strong><span
+                    class="opacity-70 ms-1">@(Model.Product.Category?.CategoryName)</span></li>
+                <li class="mb-2"><strong>Giá:</strong><span
+                    class="opacity-70 ms-1">@($"{Model.Product.Price:n0}") đ</span></li>
+                <li class="mb-2"><strong>Tổn kho:</strong><span class="opacity-70 ms-1">
+                  @Model.Product.Stock
+                </span>
+                </li>
+                <li class="mb-2"><strong>Ngày đăng:</strong><span
+                    class="opacity-70 ms-1">@(Model.Product?.CreatedAt?.ToString("HH:mm dd/MM/yyyy"))</span></li>
+                <li class="mb-2"><strong>Cập nhật:</strong><span
+                    class="opacity-70 ms-1">@(Model.Product?.UpdatedAt?.ToString("HH:mm dd/MM/yyyy"))</span>
+                </li>
+                <li class="mb-2"><strong>Số lượng bán được:</strong><span
+                    class="opacity-70 ms-1">0</span></li>
+              </ul>
+            </div>
+            <div class="col-sm-6 col-md-12 col-lg-6">
+              <ul class="list-unstyled">
+                <li class="mb-2"><strong>Thương hiệu:</strong><span class="opacity-70 ms-1">GShop</span></li>
+                <li class="mb-2"><strong>Nguồn gốc:</strong><span class="opacity-70 ms-1">Nhập khẩu từ châu âu</span><i
+                    class='fi-alert-circle fs-sm text-primary ms-2' data-bs-toggle='tooltip'
+                    title='Verified by seller'></i></li>
+                <li class="mb-2"><strong>Chất liệu:</strong><span class="opacity-70 ms-1">Cao cấp</span><i
+                    class='fi-alert-circle fs-sm text-primary ms-2' data-bs-toggle='tooltip'
+                    title='Verified by seller'></i></li>
+                <li class="mb-2"><strong>Kích cỡ:</strong><span class="opacity-70 ms-1">S, M, L, XL</span></li>
+                <li class="mb-2"><strong>Đánh giá:</strong><span class="opacity-70 ms-1">4.9/5 ⭐</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Card with icon boxes-->
+        <div class="card card-body p-4 card-light mb-4">
+          <div class="row row-cols-2 row-cols-sm-4 gx-3 gx-xl-4 gy-4">
+            <div class="col text-light text-center">
+              <div class="d-table bg-dark rounded-3 mx-auto p-3">
+                <img src="/Assets/User/check.svg" width="48"
+                     alt="Icon">
+              </div>
+              <div class="fs-sm pt-2 mt-1">Sản phẩm chính hãng GShop</div>
+            </div>
+            <div class="col text-light text-center">
+              <div class="d-table bg-dark rounded-3 mx-auto p-3"><img src="/Assets/User/buyers.svg"
+                                                                      width="48" alt="Icon"></div>
+              <div class="fs-sm pt-2 mt-1">Thiết kế thời trang, hợp xu hướng</div>
+            </div>
+            <div class="col text-light text-center">
+              <div class="d-table bg-dark rounded-3 mx-auto p-3"><img src="/Assets/User/handshake.svg"
+                                                                      width="48" alt="Icon"></div>
+              <div class="fs-sm pt-2 mt-1">Đổi trả dễ dàng trong 7 ngày</div>
+            </div>
+            <div class="col text-light text-center">
+              <div class="d-table bg-dark rounded-3 mx-auto p-3"><img src="/Assets/User/tools.svg" width="48"
+                                                                      alt="Icon"></div>
+              <div class="fs-sm pt-2 mt-1">Cam kết chất lượng & bảo hành</div>
+            </div>
+          </div>
+        </div>
+        <!-- Features-->
+        <!-- Description-->
+        <div class="pb-4 mb-3">
+          <h2 class="h4 text-light pt-4 mt-3">Mô tả</h2>
+          <p class="text-light opacity-70 mb-1">@(Model.Product?.Description).</p>
+        </div>
+      </div>
+      <!-- Sidebar-->
+      <div class="col-md-5 pt-5 pt-md-0" style="margin-top: -6rem;">
+        <div class="sticky-top pt-5">
+          <div class="d-none d-md-block pt-5">
+            <div class="d-flex mb-4"><span
+                class="badge bg-success fs-base me-2" data-bs-toggle="popover" data-bs-placement="top"
+                data-bs-trigger="hover" data-bs-html="true"
+                data-bs-content="&lt;div class=&quot;d-flex&quot;&gt;&lt;i class=&quot;fi-award mt-1 me-2&quot;&gt;&lt;/i&gt;&lt;div&gt;Sản phẩm được kiểm duyệt bởi GShop.&lt;/div&gt;&lt;/div&gt;">Được kiểm duyệt</span>
+            </div>
+            <div class="h3 text-light">@($"{Model.Product?.Price:n0}") đ</div>
+            <div class="d-flex align-items-center text-light pb-4 mb-2">
+              <div class="text-nowrap border-end border-light pe-3 me-3"><i
+                  class="fi-dashboard fs-lg opacity-70 me-2"></i><span class="align-middle">0 đã bán</span></div>
+              <div class="text-nowrap"><i class="fi-star fs-lg opacity-70 me-2"></i><span
+                  class="align-middle">4.9/5 ⭐</span>
+              </div>
+            </div>
+          </div>
+          <div class="card card-light card-body mb-4">
+            <div class="text-light mb-3 fs-5">Mua hàng</div>
+            <div class="pt-2 mt-2">
+              <div class="input-group mb-3" style="max-width: 200px;">
+                <button class="btn btn-outline-light" type="button" onclick="decreaseQty()">-</button>
+                <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1"/>
+                <button class="btn btn-outline-light" type="button" onclick="increaseQty()">+</button>
+              </div>
+              <button class="btn btn-primary btn-lg w-100" onclick="addToCart(@(Model.Product?.ProductId))">
+                <i class="fi-shopping-cart me-2"></i> Thêm vào giỏ hàng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Related posts (Carousel)-->
+    @if (Model.RelativeProduct.Count > 0)
+    {
+      <h2 class="h3 text-light pt-5 pb-3 mt-md-4">Sản phẩm liên quan</h2>
+      <div class="tns-carousel-wrapper tns-controls-outside-xxl tns-nav-outside tns-carousel-light">
+        <div class="tns-carousel-inner"
+             data-carousel-options="{&quot;items&quot;: 3, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1, &quot;gutter&quot;: 16},&quot;500&quot;:{&quot;items&quot;:2, &quot;gutter&quot;: 18},&quot;900&quot;:{&quot;items&quot;:3, &quot;gutter&quot;: 20}, &quot;1100&quot;:{&quot;gutter&quot;: 24}}}">
+          @foreach (var item in Model.RelativeProduct)
+          {
+            <div>
+              <div class="card card-light card-hover h-100">
+                <div class="card-img-top card-img-hover">
+                  <a class="img-overlay"
+                     href="/User/Product/Details/@item.ProductId"></a>
+                  <div class="position-absolute start-0 top-0 pt-3 ps-3"><span
+                      class="d-table badge bg-danger">Đã kiểm duyệt</span>
+                  </div>
+                  <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle" type="button"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                      <i
+                        class="fi-heart"></i>
+                    </button>
+                  </div>
+                  <img src="@Html.Raw(item.Images[0]?.ImageUrl)" alt="Image">
+                </div>
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between pb-1"><span
+                      class="fs-sm text-light me-3">@(item.Category?.CategoryName)</span>
+                  </div>
+                  <h3 class="h6 mb-1"><a class="nav-link-light"
+                                         href="/User/Product/Details/@item.ProductId">@item.Name</a></h3>
+                  <div class="text-primary fw-bold mb-1">@($"{item.Price:n0}") đ</div>
+                  <div class="fs-sm text-light opacity-70"><i class="fi-map-pin me-1"></i>Los Angeles</div>
+                </div>
+                <div class="card-footer border-0 pt-0">
+                  @item.Description
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+@section vendor
+{
+  <script src="~/Scripts/User/lightgallery.min.js"></script>
+  <script src="~/Scripts/User/lg-video.min.js"></script>
+  <script src="~/Scripts/User/detail-product.js"></script>
+}

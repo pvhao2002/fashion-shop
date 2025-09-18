@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Project.Entity.category>
+<section class="container pb-5 mb-md-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
+        <h2 class="h3 text-light mb-2 mb-sm-0">Danh mục</h2>
+        <a class="btn btn-link btn-light fw-normal px-0" href="/User/Product">Tất cả<i
+                class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+    </div>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
+        @foreach (var cate in Model)
+        {
+            <!-- Item-->
+            <div class="col">
+                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                    <img class="d-block mx-auto mb-3" src="@cate.image"
+                         style="width: 160px; height: 160px; object-fit: cover;" alt="Sedan">
+                    <a class="nav-link-light stretched-link fw-bold"
+                       href="/User/News?Cid=@cate.category_name">@cate.category_name</a>
+                </div>
+            </div>
+        }
+    </div>
+</section>
